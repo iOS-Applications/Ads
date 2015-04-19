@@ -31,10 +31,6 @@
 		78CE00711ADD61EE00B249A0 /* DFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CE00701ADD61EE00B249A0 /* DFAppDelegate.m */; };
 		78CE00791ADD61EE00B249A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78CE00781ADD61EE00B249A0 /* Images.xcassets */; };
 		78CE00881ADD61EE00B249A0 /* AdsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CE00871ADD61EE00B249A0 /* AdsTests.m */; };
-		78D992711ADD6E8C008D9F10 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D9925C1ADD6E8C008D9F10 /* TFHpple.m */; };
-		78D992721ADD6E8C008D9F10 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D9925E1ADD6E8C008D9F10 /* TFHppleElement.m */; };
-		78D992731ADD6E8C008D9F10 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D992601ADD6E8C008D9F10 /* XPathQuery.m */; };
-		78D992741ADD6E8C008D9F10 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 78D992621ADD6E8C008D9F10 /* CHANGELOG.md */; };
 		78D992751ADD6E8C008D9F10 /* libffmpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78D9926D1ADD6E8C008D9F10 /* libffmpeg.a */; };
 		78D992761ADD6E8C008D9F10 /* libopenssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78D9926E1ADD6E8C008D9F10 /* libopenssl.a */; };
 		78D992771ADD6E8C008D9F10 /* libVitamio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78D9926F1ADD6E8C008D9F10 /* libVitamio.a */; };
@@ -91,12 +87,6 @@
 		78CE00811ADD61EE00B249A0 /* AdsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		78CE00861ADD61EE00B249A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78CE00871ADD61EE00B249A0 /* AdsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdsTests.m; sourceTree = "<group>"; };
-		78D9925B1ADD6E8C008D9F10 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
-		78D9925C1ADD6E8C008D9F10 /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
-		78D9925D1ADD6E8C008D9F10 /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
-		78D9925E1ADD6E8C008D9F10 /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
-		78D9925F1ADD6E8C008D9F10 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
-		78D992601ADD6E8C008D9F10 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		78D992621ADD6E8C008D9F10 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		78D992651ADD6E8C008D9F10 /* VDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDefines.h; sourceTree = "<group>"; };
 		78D992661ADD6E8C008D9F10 /* Vitamio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vitamio.h; sourceTree = "<group>"; };
@@ -174,7 +164,6 @@
 				78CE00691ADD61EE00B249A0 /* Products */,
 				CAB729A3927BA3069C58C27D /* Pods */,
 				7C8FEB33C277630B2E0AEBDC /* Frameworks */,
-				78D9925A1ADD6E8C008D9F10 /* TFHpple */,
 				78D992611ADD6E8C008D9F10 /* Vitamio */,
 			);
 			sourceTree = "<group>";
@@ -252,20 +241,6 @@
 				78FEE1381AE352FD00972C9C /* DFConstants.m */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		78D9925A1ADD6E8C008D9F10 /* TFHpple */ = {
-			isa = PBXGroup;
-			children = (
-				78D9925B1ADD6E8C008D9F10 /* TFHpple.h */,
-				78D9925C1ADD6E8C008D9F10 /* TFHpple.m */,
-				78D9925D1ADD6E8C008D9F10 /* TFHppleElement.h */,
-				78D9925E1ADD6E8C008D9F10 /* TFHppleElement.m */,
-				78D9925F1ADD6E8C008D9F10 /* XPathQuery.h */,
-				78D992601ADD6E8C008D9F10 /* XPathQuery.m */,
-			);
-			name = TFHpple;
-			path = ../LoveAD/TFHpple;
 			sourceTree = "<group>";
 		};
 		78D992611ADD6E8C008D9F10 /* Vitamio */ = {
@@ -530,10 +505,6 @@
 				78D9929E1ADD6ECB008D9F10 /* DFHtmlParser.m in Sources */,
 				78D992A21ADD6ECB008D9F10 /* DFMainViewController.m in Sources */,
 				78CE006E1ADD61EE00B249A0 /* main.m in Sources */,
-				78D992711ADD6E8C008D9F10 /* TFHpple.m in Sources */,
-				78D992731ADD6E8C008D9F10 /* XPathQuery.m in Sources */,
-				78D992741ADD6E8C008D9F10 /* CHANGELOG.md in Sources */,
-				78D992721ADD6E8C008D9F10 /* TFHppleElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,6 +5,7 @@ target 'Ads' do
 
 pod 'SDWebImage' 
 pod 'AFNetworking'
+pod 'hpple'
 
 end
 
