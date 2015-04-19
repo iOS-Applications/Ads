@@ -185,7 +185,7 @@
                 }
                 // 时长 人气
                 else if (e1.children.count == 2) {  // 没完全分开
-                    if (((TFHppleElement *)[e1.children firstObject]).content) {
+                    if ([[((TFHppleElement *)[e1.children lastObject]) objectForKey:@"color"] isEqualToString:@"#FF00FF"]) {
                         // 时长：30s 人气
                         NSString *videoDuration = ((TFHppleElement *)[e1.children firstObject]).content;
                         // 301
@@ -193,6 +193,15 @@
                         
                         ad.videoDuration = [NSString stringWithFormat:@"%@ %@", videoDuration, videoWatchCount];
                         ad.videoDesc = videoDuration;
+                    } else if ([[((TFHppleElement *)[e1.children lastObject]) objectForKey:@"color"] isEqualToString:@"red"]) {
+                        
+                        // 时长：30s 人气
+                        NSString *videoDuration = ((TFHppleElement *)[e1.children firstObject]).content;
+                        // 301
+                        NSString *videoWatchCount = ((TFHppleElement *)[((TFHppleElement *)[e1.children lastObject]).children firstObject]).content;
+                        
+                        ad.videoUpdateDate = [NSString stringWithFormat:@"%@ %@", videoDuration, videoWatchCount];
+                        ad.videoDesc = ad.videoUpdateDate;
                     }
                 }
                 break;

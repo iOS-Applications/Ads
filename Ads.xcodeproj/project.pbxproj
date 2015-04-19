@@ -116,6 +116,7 @@
 		78D9928C1ADD6ECB008D9F10 /* DFHtmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFHtmlParser.m; sourceTree = "<group>"; };
 		78D992941ADD6ECB008D9F10 /* DFMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DFMainViewController.h; path = ViewControllers/DFMainViewController.h; sourceTree = "<group>"; };
 		78D992951ADD6ECB008D9F10 /* DFMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DFMainViewController.m; path = ViewControllers/DFMainViewController.m; sourceTree = "<group>"; };
+		78E692141AE4068B00CC6226 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		78F767FC1AE0851F00D55ADB /* libPods-Ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Ads.a"; path = "Pods/../build/Debug-iphoneos/libPods-Ads.a"; sourceTree = "<group>"; };
 		78FE0AC01ADF371200FF3329 /* DFVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DFVideoViewController.h; path = ViewControllers/DFVideoViewController.h; sourceTree = "<group>"; };
 		78FE0AC11ADF371200FF3329 /* DFVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DFVideoViewController.m; path = ViewControllers/DFVideoViewController.m; sourceTree = "<group>"; };
@@ -208,6 +209,7 @@
 			children = (
 				78CE006C1ADD61EE00B249A0 /* Info.plist */,
 				78CE006D1ADD61EE00B249A0 /* main.m */,
+				78E692141AE4068B00CC6226 /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
