@@ -10,22 +10,20 @@
 
 @implementation DFHtmlParser
 
-/**
- *  最近更新页
- */
-+ (NSMutableArray *)parseNewPage:(NSData *)data {
+#pragma mark 解析最近更新页面
++ (NSMutableArray *)parseLatestPage:(NSData *)data {
     TFHpple * doc = [[TFHpple alloc] initWithHTMLData:data];
     
     NSArray *elements = [doc searchWithXPathQuery:@"//div[@class='newcontent']"];
     
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for (int i = 0; i < elements.count; i++) {
-        [DFHtmlParser parseLatestElements:[elements objectAtIndex:i] addTo:result];
+        [DFHtmlParser parseLatestElement:[elements objectAtIndex:i] addTo:result];
     }
     return result;
 }
 
-+ (void)parseLatestElements:(TFHppleElement *)element addTo:(NSMutableArray *)array {
++ (void)parseLatestElement:(TFHppleElement *)element addTo:(NSMutableArray *)array {
     
     NSArray *children = element.children;
     
@@ -56,21 +54,19 @@
     [array addObject:ad];
 }
 
-/**
- *  视频播放页
- */
-+ (NSMutableArray *)parseVideoPage:(NSData *)data {
+#pragma mark 解析视频播放页 相关推荐视频
++ (NSMutableArray *)parseVideoPageRecommandedVideos:(NSData *)data {
     TFHpple * doc = [[TFHpple alloc] initWithHTMLData:data];
     
     NSArray *elements = [doc searchWithXPathQuery:@"//div[@class='infonew']"];
     TFHppleElement *element = [elements objectAtIndex:0];
     
     NSMutableArray *result = [[NSMutableArray alloc] init];
-    [DFHtmlParser parseVideoPageElements:element addTo:result];
+    [DFHtmlParser parseVideoPageRecommandedVideoElement:element addTo:result];
     return result;
 }
 
-+ (void)parseVideoPageElements:(TFHppleElement *)element addTo:(NSMutableArray *)array {
++ (void)parseVideoPageRecommandedVideoElement:(TFHppleElement *)element addTo:(NSMutableArray *)array {
     if (!element.hasChildren) {
         return;
     }
@@ -95,25 +91,65 @@
             [array addObject:video];
             break;
         }
-        [DFHtmlParser parseVideoPageElements:e addTo:array];
+        [DFHtmlParser parseVideoPageRecommandedVideoElement:e addTo:array];
     }
 }
 
-/**
- *  分类查询页
- */
+#pragma mark 解析视频播放页 本类最热视频
++ (NSMutableArray *)parseVideoPageHotestVideos:(NSData *)data {
+    TFHpple * doc = [[TFHpple alloc] initWithHTMLData:data];
+    
+    NSArray *elements = [doc searchWithXPathQuery:@"//div[@class='inforank']"];
+    TFHppleElement *element = [elements objectAtIndex:0];
+    
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    [DFHtmlParser parseVideoPageHotestVideoElement:element addTo:result];
+    return result;
+}
+
++ (void)parseVideoPageHotestVideoElement:(TFHppleElement *)element addTo:(NSMutableArray *)array {
+    if (!element.hasChildren) {
+        return;
+    }
+    
+    NSObject *obj;
+    for (obj in element.children) {
+        TFHppleElement *e = (TFHppleElement *)obj;
+        
+        if ([e.tagName isEqualToString:@"a"]) {
+            NSDictionary *attrs = e.attributes;
+            
+            DFAdVideo *video = [[DFAdVideo alloc] init];
+            video.videoTitle = [attrs objectForKey:@"title"];
+            video.videoPageUrl = [attrs objectForKey:@"href"];
+            
+            NSArray *children = e.children;
+            if (children.count > 0) {
+                TFHppleElement *e2 = [children firstObject];
+                NSDictionary *attrs = e2.attributes;
+                video.videoImage = [attrs objectForKey:@"src"];
+            }
+            
+            [array addObject:video];
+            break;
+        }
+        [DFHtmlParser parseVideoPageHotestVideoElement:e addTo:array];
+    }
+}
+
+#pragma mark 解析分类查询结果页面
 + (NSMutableArray *)parseCategoryPage:(NSData *)data {
     TFHpple *doc = [[TFHpple alloc] initWithHTMLData:data];
     NSArray *elements = [doc searchWithXPathQuery:@"//div[@class='listinfo']"];
     
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for (int i = 0; i < elements.count; i++) {
-        [DFHtmlParser parseCategoryListElement:[elements objectAtIndex:i] addTo:result];
+        [DFHtmlParser parseCategoryElement:[elements objectAtIndex:i] addTo:result];
     }
     return result;
 }
 
-+ (void)parseCategoryListElement:(TFHppleElement *)element addTo:(NSMutableArray *)array {
++ (void)parseCategoryElement:(TFHppleElement *)element addTo:(NSMutableArray *)array {
     NSArray *children = element.children;
     if (children == nil || children.count == 0) {
         return;
@@ -149,12 +185,15 @@
                 }
                 // 时长 人气
                 else if (e1.children.count == 2) {  // 没完全分开
-                    // 时长：30s 人气
-                    NSString *videoDuration = ((TFHppleElement *)[e1.children firstObject]).content;
-                    // 301
-                    NSString *videoWatchCount = ((TFHppleElement *)[((TFHppleElement *)[e1.children lastObject]).children firstObject]).content;
-                    
-                    ad.videoDuration = [NSString stringWithFormat:@"%@ %@", videoDuration, videoWatchCount];
+                    if (((TFHppleElement *)[e1.children firstObject]).content) {
+                        // 时长：30s 人气
+                        NSString *videoDuration = ((TFHppleElement *)[e1.children firstObject]).content;
+                        // 301
+                        NSString *videoWatchCount = ((TFHppleElement *)[((TFHppleElement *)[e1.children lastObject]).children firstObject]).content;
+                        
+                        ad.videoDuration = [NSString stringWithFormat:@"%@ %@", videoDuration, videoWatchCount];
+                        ad.videoDesc = videoDuration;
+                    }
                 }
                 break;
             }
@@ -163,6 +202,7 @@
     [array addObject:ad];
 }
 
+#pragma mark 解析搜索结果页面
 + (NSMutableArray *)parseSearchPage:(NSData *)data {
     TFHpple *doc = [[TFHpple alloc] initWithHTMLData:data];
     NSArray *elements = [doc searchWithXPathQuery:@"//div[@class='searchbox']"];

@@ -41,7 +41,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="NKN-3L-Jd6">
-                    <rect key="frame" x="20" y="301" width="560" height="279"/>
+                    <rect key="frame" x="8" y="289" width="584" height="303"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
@@ -49,15 +49,15 @@
             <constraints>
                 <constraint firstAttribute="bottomMargin" secondItem="n4A-25-Ux6" secondAttribute="bottom" constant="588" id="5Du-ta-XEx"/>
                 <constraint firstItem="SQ6-Pf-LFc" firstAttribute="top" secondItem="NOM-9L-hSa" secondAttribute="bottom" constant="20" id="CIG-EJ-14D"/>
-                <constraint firstItem="NKN-3L-Jd6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="Pxd-fP-m4J"/>
+                <constraint firstItem="NKN-3L-Jd6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Pxd-fP-m4J"/>
                 <constraint firstItem="n4A-25-Ux6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="8" id="QnB-th-u56"/>
-                <constraint firstAttribute="trailing" secondItem="NKN-3L-Jd6" secondAttribute="trailing" constant="20" id="bLn-5D-Nw5"/>
+                <constraint firstAttribute="trailing" secondItem="NKN-3L-Jd6" secondAttribute="trailing" constant="8" id="bLn-5D-Nw5"/>
                 <constraint firstAttribute="trailing" secondItem="SQ6-Pf-LFc" secondAttribute="trailing" constant="20" id="bx4-Bg-BXb"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="n4A-25-Ux6" secondAttribute="bottom" priority="750" constant="100" id="cCu-7Z-pAY"/>
                 <constraint firstAttribute="trailingMargin" secondItem="n4A-25-Ux6" secondAttribute="trailing" constant="8" id="ean-vC-hJ8"/>
                 <constraint firstItem="NKN-3L-Jd6" firstAttribute="width" secondItem="NOM-9L-hSa" secondAttribute="width" id="qBf-Oo-WSb"/>
-                <constraint firstAttribute="bottom" secondItem="NKN-3L-Jd6" secondAttribute="bottom" constant="20" id="sgg-Ke-TF1"/>
-                <constraint firstItem="NKN-3L-Jd6" firstAttribute="top" secondItem="SQ6-Pf-LFc" secondAttribute="bottom" constant="20" id="wm3-kB-8AS"/>
+                <constraint firstAttribute="bottom" secondItem="NKN-3L-Jd6" secondAttribute="bottom" constant="8" id="sgg-Ke-TF1"/>
+                <constraint firstItem="NKN-3L-Jd6" firstAttribute="top" secondItem="SQ6-Pf-LFc" secondAttribute="bottom" constant="8" id="wm3-kB-8AS"/>
                 <constraint firstItem="n4A-25-Ux6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" constant="72" id="wpP-V8-s9E"/>
                 <constraint firstItem="SQ6-Pf-LFc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="yci-aP-hql"/>
             </constraints>

@@ -9,6 +9,8 @@
 #import "DFVideoViewController.h"
 #import "VMediaPlayer.h"
 #import "DFHtmlParser.h"
+#import "DFVideoTableViewCell.h"
+#import "DFConstants.h"
 
 @interface DFVideoViewController ()<VMediaPlayerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -16,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIView         *carrierView;
 
 @property (weak, nonatomic) IBOutlet UITableView    *tableView;
-@property (nonatomic) NSMutableArray                            *data;
+@property (nonatomic) NSMutableArray                *data;
 
 @property (nonatomic) VMediaPlayer *player;
 
@@ -56,6 +58,9 @@
 #pragma mark - Private methods
 
 - (void)setUpViews {
+    UINib *nib = [UINib nibWithNibName:NSStringFromClass([DFVideoTableViewCell class]) bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:CellIdentifier];
+    self.tableView.rowHeight = 66.0;
     self.tableView.dataSource = self;
     self.tableView.delegate   = self;
     self.tableView.tableFooterView = [[UIView alloc] init];
@@ -105,7 +110,7 @@
         
         NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
         
-        self.data = [DFHtmlParser parseVideoPage:data];
+        self.data = [DFHtmlParser parseVideoPageHotestVideos:data];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
@@ -173,20 +178,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *RelatedCellIdentifier = @"RelatedCellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:RelatedCellIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                      reuseIdentifier:RelatedCellIdentifier];
-    }
+    DFVideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     DFAdVideo *video = [self.data objectAtIndex:indexPath.row];
-    
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:video.videoImage]
-                      placeholderImage:[UIImage imageNamed:@"image_animal_2"]];
-    cell.textLabel.text = video.videoTitle;
-    cell.detailTextLabel.text = video.videoPageUrl;
-    
+    [cell setVideo:video];
     return cell;
 }
 

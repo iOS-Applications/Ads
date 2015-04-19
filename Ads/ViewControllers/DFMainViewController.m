@@ -10,6 +10,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIView+WebCacheOperation.h>
 #import "DFConstants.h"
+#import "DFVideoCell.h"
+#import "DFVideoTableViewCell.h"
 
 @interface DFMainViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -59,12 +61,16 @@
 #pragma  mark - Private Methods
 
 - (void)setUpViews {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectOffset(self.view.frame, 0, 8)
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectOffset(self.view.frame, 0, 0)
                                                           style:UITableViewStylePlain];
-    self.tableView.estimatedRowHeight = 60;
+    
+    UINib *nib = [UINib nibWithNibName:NSStringFromClass([DFVideoTableViewCell class]) bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:CellIdentifier];
+//    self.tableView.estimatedRowHeight = 60;
+    self.tableView.rowHeight = 76;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.dataSource   = self;
-    self.tableView.delegate     = self;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     self.tableView.tableFooterView = [[UIView alloc] init];
 
     [self.view addSubview:self.tableView];
@@ -77,20 +83,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *Identifier = @"Identifier";
+    DFVideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:Identifier];
-    }
-
     DFAdVideo *video = [self.data objectAtIndex:indexPath.row];
-    
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:video.videoImage]
-                      placeholderImage:[UIImage imageNamed:@"image_animal_2"]];
-    cell.textLabel.text         = video.videoTitle;
-    cell.detailTextLabel.text   = video.videoPageUrl;
+    [cell setVideo:video];
     return cell;
 }
 

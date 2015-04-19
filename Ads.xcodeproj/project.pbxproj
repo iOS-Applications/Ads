@@ -24,6 +24,9 @@
 		780DAC7A1ADD70C400EA3C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 780DAC791ADD70C400EA3C6A /* Foundation.framework */; };
 		780DAC7C1ADD70CB00EA3C6A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 780DAC7B1ADD70CB00EA3C6A /* CoreFoundation.framework */; };
 		780DAC7E1ADD70E900EA3C6A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 780DAC7D1ADD70E900EA3C6A /* libz.dylib */; };
+		782770921AE39D1C00E54DF8 /* DFVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 782770901AE39D1C00E54DF8 /* DFVideoCell.m */; };
+		782770971AE3E45D00E54DF8 /* DFVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 782770951AE3E45D00E54DF8 /* DFVideoTableViewCell.m */; };
+		782770981AE3E45D00E54DF8 /* DFVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782770961AE3E45D00E54DF8 /* DFVideoTableViewCell.xib */; };
 		78CE006E1ADD61EE00B249A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CE006D1ADD61EE00B249A0 /* main.m */; };
 		78CE00711ADD61EE00B249A0 /* DFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CE00701ADD61EE00B249A0 /* DFAppDelegate.m */; };
 		78CE00791ADD61EE00B249A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78CE00781ADD61EE00B249A0 /* Images.xcassets */; };
@@ -43,7 +46,6 @@
 		78FE0AC21ADF371200FF3329 /* DFVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FE0AC11ADF371200FF3329 /* DFVideoViewController.m */; };
 		78FEE1391AE352FD00972C9C /* DFConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FEE1381AE352FD00972C9C /* DFConstants.m */; };
 		78FEE1401AE35D3100972C9C /* DFVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78FEE13F1AE35D3100972C9C /* DFVideoViewController.xib */; };
-		D95C2CDD071E129204625965 /* libPods-Ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB69C2C2573803F473D93D84 /* libPods-Ads.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,11 @@
 		780DAC791ADD70C400EA3C6A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		780DAC7B1ADD70CB00EA3C6A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		780DAC7D1ADD70E900EA3C6A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		7827708F1AE39D1C00E54DF8 /* DFVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFVideoCell.h; sourceTree = "<group>"; };
+		782770901AE39D1C00E54DF8 /* DFVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFVideoCell.m; sourceTree = "<group>"; };
+		782770941AE3E45D00E54DF8 /* DFVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFVideoTableViewCell.h; sourceTree = "<group>"; };
+		782770951AE3E45D00E54DF8 /* DFVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFVideoTableViewCell.m; sourceTree = "<group>"; };
+		782770961AE3E45D00E54DF8 /* DFVideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DFVideoTableViewCell.xib; sourceTree = "<group>"; };
 		78CE00681ADD61EE00B249A0 /* Ads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ads.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78CE006C1ADD61EE00B249A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78CE006D1ADD61EE00B249A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -145,7 +152,6 @@
 				78D992751ADD6E8C008D9F10 /* libffmpeg.a in Frameworks */,
 				753987EA9B84AE00CA28EFC6 /* libPods-Ads.a in Frameworks */,
 				78D992771ADD6E8C008D9F10 /* libVitamio.a in Frameworks */,
-				D95C2CDD071E129204625965 /* libPods-Ads.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +330,11 @@
 		78FE0AC41ADF3C4800FF3329 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7827708F1AE39D1C00E54DF8 /* DFVideoCell.h */,
+				782770901AE39D1C00E54DF8 /* DFVideoCell.m */,
+				782770941AE3E45D00E54DF8 /* DFVideoTableViewCell.h */,
+				782770951AE3E45D00E54DF8 /* DFVideoTableViewCell.m */,
+				782770961AE3E45D00E54DF8 /* DFVideoTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -454,6 +465,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				782770981AE3E45D00E54DF8 /* DFVideoTableViewCell.xib in Resources */,
 				78D992781ADD6E8C008D9F10 /* LICENSE in Resources */,
 				78FEE1401AE35D3100972C9C /* DFVideoViewController.xib in Resources */,
 				78CE00791ADD61EE00B249A0 /* Images.xcassets in Resources */,
@@ -508,8 +520,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				78FEE1391AE352FD00972C9C /* DFConstants.m in Sources */,
+				782770921AE39D1C00E54DF8 /* DFVideoCell.m in Sources */,
 				78CE00711ADD61EE00B249A0 /* DFAppDelegate.m in Sources */,
 				78FE0AC21ADF371200FF3329 /* DFVideoViewController.m in Sources */,
+				782770971AE3E45D00E54DF8 /* DFVideoTableViewCell.m in Sources */,
 				78D992891ADD6EBC008D9F10 /* DFAdVideo.m in Sources */,
 				78D9929E1ADD6ECB008D9F10 /* DFHtmlParser.m in Sources */,
 				78D992A21ADD6ECB008D9F10 /* DFMainViewController.m in Sources */,
