@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DFAdVideo.h"
 #import <MediaAccessibility/MediaAccessibility.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DFVideoViewController : UIViewController
 

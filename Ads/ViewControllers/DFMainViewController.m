@@ -9,6 +9,7 @@
 #import "DFMainViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIView+WebCacheOperation.h>
+#import "DFConstants.h"
 
 @interface DFMainViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -21,7 +22,7 @@
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        self.title = @"最新更新";
+        self.title = @"热门";
     }
     return self;
 }
@@ -31,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setUpTableView];
+    [self setUpViews];
     [self loadData];
 }
 
@@ -57,7 +58,7 @@
 
 #pragma  mark - Private Methods
 
-- (void)setUpTableView {
+- (void)setUpViews {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectOffset(self.view.frame, 0, 8)
                                                           style:UITableViewStylePlain];
     self.tableView.estimatedRowHeight = 60;
@@ -105,19 +106,17 @@
 #pragma mark - Load Data
 
 - (void)loadData {
-    
+    [self loadDataWithPageNumber:1];
+}
+
+- (void)loadDataWithPageNumber:(int)pageNumber {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
         // GB2312
         NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-        // test
-        NSString *urlString = @"http://www.adzop.com/downinfo/29768.html";    // videp page
-        urlString = @"http://www.adzop.com/downnew/0_1.html"; // latest page
-//        *urlString = @"http://www.adzop.com/downlist/s_89_1.html"; // category page
-//        urlString = @"http://www.adzop.com/downlist/s_62_1.html";
-//        urlString = @"http://www.adzop.com/search.asp?keyword=%C1%D6%D6%BE%C1%E1&Submit.x=0&Submit.y=0&action=s&sType=ResName";// 下载搜索·
-        
-        NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlString]
+        // 热门
+        NSString *url = [NSString stringWithFormat:HOT_ADS_URL, pageNumber];
+        NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:url]
                                                   encoding:enc
                                                      error:nil];
         // 必须转换编码, 内部解析的时候会用到这个
@@ -125,14 +124,13 @@
 
         NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
         
-//        self.data = [DFHtmlParser parseVideoPage:data];
-        self.data = [DFHtmlParser parseNewPage:data];
-//        self.data = [BBHtmlParser parseCategoryPage:data];
-//        self.data = [BBHtmlParser parseSearchPage:data];
+        if (!self.data) {
+            self.data = [[NSMutableArray alloc] init];
+        }
+        [self.data addObjectsFromArray:[DFHtmlParser parseCategoryPage:data]];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
-        
     });
 }
 @end

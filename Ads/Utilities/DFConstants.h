@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString *URL_LATEST = @"";
+static NSString *HOT_ADS_URL = @"http://www.adzop.com/downlist/r_3_%d.html";
 
 @interface DFConstants : NSObject
 
