@@ -41,6 +41,8 @@
 		78D992A21ADD6ECB008D9F10 /* DFMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D992951ADD6ECB008D9F10 /* DFMainViewController.m */; };
 		78F767FD1AE0851F00D55ADB /* libPods-Ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78F767FC1AE0851F00D55ADB /* libPods-Ads.a */; };
 		78FE0AC21ADF371200FF3329 /* DFVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FE0AC11ADF371200FF3329 /* DFVideoViewController.m */; };
+		78FEE1391AE352FD00972C9C /* DFConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FEE1381AE352FD00972C9C /* DFConstants.m */; };
+		78FEE1401AE35D3100972C9C /* DFVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78FEE13F1AE35D3100972C9C /* DFVideoViewController.xib */; };
 		D95C2CDD071E129204625965 /* libPods-Ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB69C2C2573803F473D93D84 /* libPods-Ads.a */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +112,9 @@
 		78F767FC1AE0851F00D55ADB /* libPods-Ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Ads.a"; path = "Pods/../build/Debug-iphoneos/libPods-Ads.a"; sourceTree = "<group>"; };
 		78FE0AC01ADF371200FF3329 /* DFVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DFVideoViewController.h; path = ViewControllers/DFVideoViewController.h; sourceTree = "<group>"; };
 		78FE0AC11ADF371200FF3329 /* DFVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DFVideoViewController.m; path = ViewControllers/DFVideoViewController.m; sourceTree = "<group>"; };
+		78FEE1371AE352FD00972C9C /* DFConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFConstants.h; sourceTree = "<group>"; };
+		78FEE1381AE352FD00972C9C /* DFConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFConstants.m; sourceTree = "<group>"; };
+		78FEE13F1AE35D3100972C9C /* DFVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DFVideoViewController.xib; path = ViewControllers/DFVideoViewController.xib; sourceTree = "<group>"; };
 		CB69C2C2573803F473D93D84 /* libPods-Ads.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ads.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF2A957A8B42D64345741514 /* libPods-Ads.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ads.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -185,7 +190,7 @@
 				78D992861ADD6EBC008D9F10 /* Domain */,
 				78D992581ADD6E4B008D9F10 /* ViewControllers */,
 				78FE0AC41ADF3C4800FF3329 /* Views */,
-				78D992591ADD6E57008D9F10 /* Utility */,
+				78D992591ADD6E57008D9F10 /* Utilities */,
 				78CE00781ADD61EE00B249A0 /* Images.xcassets */,
 				78CE006B1ADD61EE00B249A0 /* Supporting Files */,
 			);
@@ -223,19 +228,22 @@
 			children = (
 				78FE0AC01ADF371200FF3329 /* DFVideoViewController.h */,
 				78FE0AC11ADF371200FF3329 /* DFVideoViewController.m */,
+				78FEE13F1AE35D3100972C9C /* DFVideoViewController.xib */,
 				78D992941ADD6ECB008D9F10 /* DFMainViewController.h */,
 				78D992951ADD6ECB008D9F10 /* DFMainViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		78D992591ADD6E57008D9F10 /* Utility */ = {
+		78D992591ADD6E57008D9F10 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				78D9928B1ADD6ECB008D9F10 /* DFHtmlParser.h */,
 				78D9928C1ADD6ECB008D9F10 /* DFHtmlParser.m */,
+				78FEE1371AE352FD00972C9C /* DFConstants.h */,
+				78FEE1381AE352FD00972C9C /* DFConstants.m */,
 			);
-			path = Utility;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		78D9925A1ADD6E8C008D9F10 /* TFHpple */ = {
@@ -317,7 +325,7 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		78FE0AC51ADF3C7400FF3329 /* Application */ = {
@@ -447,6 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				78D992781ADD6E8C008D9F10 /* LICENSE in Resources */,
+				78FEE1401AE35D3100972C9C /* DFVideoViewController.xib in Resources */,
 				78CE00791ADD61EE00B249A0 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,6 +507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78FEE1391AE352FD00972C9C /* DFConstants.m in Sources */,
 				78CE00711ADD61EE00B249A0 /* DFAppDelegate.m in Sources */,
 				78FE0AC21ADF371200FF3329 /* DFVideoViewController.m in Sources */,
 				78D992891ADD6EBC008D9F10 /* DFAdVideo.m in Sources */,

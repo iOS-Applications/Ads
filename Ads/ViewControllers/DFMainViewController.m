@@ -19,6 +19,13 @@
 
 @implementation DFMainViewController
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.title = @"最新更新";
+    }
+    return self;
+}
+
 #pragma mark - Life Cycle
 
 - (void)viewDidLoad {
@@ -51,7 +58,7 @@
 #pragma  mark - Private Methods
 
 - (void)setUpTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectOffset(self.view.frame, 0, 20)
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectOffset(self.view.frame, 0, 8)
                                                           style:UITableViewStylePlain];
     self.tableView.estimatedRowHeight = 60;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -92,7 +99,7 @@
     DFAdVideo *video = [self.data objectAtIndex:indexPath.row];
     DFVideoViewController *videoViewController = [[DFVideoViewController alloc] initWithNibName:nil bundle:nil];
     videoViewController.video = video;
-    [self presentViewController:videoViewController animated:YES completion:nil];
+    [self.navigationController pushViewController:videoViewController animated:YES];
 }
 
 #pragma mark - Load Data
@@ -105,7 +112,7 @@
         NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
         // test
         NSString *urlString = @"http://www.adzop.com/downinfo/29768.html";    // videp page
-//        *urlString = @"http://www.adzop.com/downnew/0_1.html"; // latest page
+        urlString = @"http://www.adzop.com/downnew/0_1.html"; // latest page
 //        *urlString = @"http://www.adzop.com/downlist/s_89_1.html"; // category page
 //        urlString = @"http://www.adzop.com/downlist/s_62_1.html";
 //        urlString = @"http://www.adzop.com/search.asp?keyword=%C1%D6%D6%BE%C1%E1&Submit.x=0&Submit.y=0&action=s&sType=ResName";// 下载搜索·
@@ -118,8 +125,8 @@
 
         NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
         
-        self.data = [DFHtmlParser parseVideoPage:data];
-//        self.data = [BBHtmlParser parseNewPage:data];
+//        self.data = [DFHtmlParser parseVideoPage:data];
+        self.data = [DFHtmlParser parseNewPage:data];
 //        self.data = [BBHtmlParser parseCategoryPage:data];
 //        self.data = [BBHtmlParser parseSearchPage:data];
         dispatch_async(dispatch_get_main_queue(), ^{

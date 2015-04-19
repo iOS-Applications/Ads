@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7531"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DFVideoViewController">
+            <connections>
+                <outlet property="backView" destination="n4A-25-Ux6" id="hXh-mp-FOp"/>
+                <outlet property="carrierView" destination="NOM-9L-hSa" id="n2F-4H-Jvu"/>
+                <outlet property="view" destination="iN0-l3-epB" id="uIH-qA-b0s"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4A-25-Ux6">
+                    <rect key="frame" x="16" y="80" width="568" height="160"/>
+                    <subviews>
+                        <view clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NOM-9L-hSa">
+                            <rect key="frame" x="0.0" y="0.0" width="568" height="160"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="NOM-9L-hSa" secondAttribute="trailing" id="RUZ-ty-CMo"/>
+                        <constraint firstAttribute="bottom" secondItem="NOM-9L-hSa" secondAttribute="bottom" id="XQV-Y9-Hqz"/>
+                        <constraint firstItem="NOM-9L-hSa" firstAttribute="top" secondItem="n4A-25-Ux6" secondAttribute="top" id="XdN-lt-Lq5"/>
+                        <constraint firstAttribute="height" constant="160" id="hN0-t7-mPS" userLabel="Height - (280) - View"/>
+                        <constraint firstItem="NOM-9L-hSa" firstAttribute="leading" secondItem="n4A-25-Ux6" secondAttribute="leading" id="oyN-yG-eDc"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottomMargin" secondItem="n4A-25-Ux6" secondAttribute="bottom" constant="588" id="5Du-ta-XEx"/>
+                <constraint firstItem="n4A-25-Ux6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="8" id="QnB-th-u56"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="n4A-25-Ux6" secondAttribute="bottom" priority="750" constant="100" id="cCu-7Z-pAY"/>
+                <constraint firstAttribute="trailingMargin" secondItem="n4A-25-Ux6" secondAttribute="trailing" constant="8" id="ean-vC-hJ8"/>
+                <constraint firstItem="n4A-25-Ux6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" constant="72" id="wpP-V8-s9E"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="5Du-ta-XEx"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>
