@@ -6,13 +6,13 @@
 //  Copyright (c) 2015年 Bebeeru. All rights reserved.
 //
 
-#import "DFAdVideo.h"
+#import "DFVideo.h"
 
-@interface DFAdVideo ()
+@interface DFVideo ()
 
 @end
 
-@implementation DFAdVideo
+@implementation DFVideo
 
 - (instancetype)initWithDict:(NSDictionary *)dict {
     if (self = [super init]) {
@@ -23,6 +23,7 @@
     }
     return self;
 }
+
 - (NSString *)videoPageUrl {
     return [NSString stringWithFormat:@"http://www.adzop.com/%@", [_videoPageUrl stringByReplacingOccurrencesOfString:@"../" withString:@""]];
 }

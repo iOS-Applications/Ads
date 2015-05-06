@@ -1,11 +1,16 @@
 # Uncomment this line to define a global platform for your project
 platform :ios, '8.3'
 
-target 'Ads' do
+link_with 'Ads', 'AdsTests'
 
 pod 'SDWebImage' 
 pod 'AFNetworking'
 pod 'hpple'
+pod 'MJRefresh'
+pod 'FMDB'
+pod 'Masonry'
+
+target 'Ads' do
 
 end
 

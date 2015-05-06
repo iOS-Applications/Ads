@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TFHpple.h"
 #import "TFHppleElement.h"
-#import "DFAdVideo.h"
+#import "DFVideo.h"
 
 @interface DFHtmlParser : NSObject
 

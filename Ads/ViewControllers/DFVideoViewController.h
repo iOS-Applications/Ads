@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DFAdVideo.h"
+#import "DFVideo.h"
 #import <MediaAccessibility/MediaAccessibility.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DFVideoViewController : UIViewController
 
-@property DFAdVideo *video;
+@property DFVideo *video;
 
 @end

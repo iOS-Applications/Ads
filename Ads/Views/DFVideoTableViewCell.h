@@ -1,5 +1,5 @@
 //
-//  DFAdVideoCellTableViewCell.h
+//  DFVideoCellTableViewCell.h
 //  Ads
 //
 //  Created by zhudf on 15/4/19.
@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DFAdVideo.h"
+#import "DFVideo.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DFVideoTableViewCell : UITableViewCell
@@ -16,6 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *videoTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *videoDescLabel;
 
-- (void)setVideo:(DFAdVideo *)video;
+- (void)setVideo:(DFVideo *)video;
 
 @end

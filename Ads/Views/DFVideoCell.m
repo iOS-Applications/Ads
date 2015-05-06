@@ -7,7 +7,7 @@
 //
 
 #import "DFVideoCell.h"
-#import "DFAdVideo.h"
+#import "DFVideo.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DFVideoCell()
@@ -43,7 +43,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setVideo:(DFAdVideo *)video {
+- (void)setVideo:(DFVideo *)video {
     self.video = video;
     
     [self setData];

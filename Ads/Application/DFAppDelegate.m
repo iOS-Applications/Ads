@@ -8,6 +8,7 @@
 
 #import "DFAppDelegate.h"
 #import "DFMainViewController.h"
+#import <AFNetworking/AFNetworkReachabilityManager.h>
 
 @interface DFAppDelegate ()
 
@@ -24,6 +25,9 @@
     DFMainViewController *mainViewController = [[DFMainViewController alloc] initWithNibName:nil bundle:nil];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     [self.window makeKeyAndVisible];
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    // 是否允许NSLocalNotification
     return YES;
 }
 

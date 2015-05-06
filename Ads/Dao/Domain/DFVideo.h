@@ -8,29 +8,28 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DFAdVideo : NSObject
+@interface DFVideo : NSObject
 
 
 /* 标题 */
-@property NSString *videoTitle;     
+@property (nonatomic, copy) NSString *videoTitle;
 /* 预览图片 */
-@property (nonatomic) NSString *videoImage;     
+@property (nonatomic, copy) NSString *videoImage;
 /* 视频所在网页（用来解析真实视频地址）*/
-@property (nonatomic) NSString *videoPageUrl;
+@property (nonatomic, copy) NSString *videoPageUrl;
 /* 视频真实地址 */
-@property (nonatomic) NSString *videoUri;
+@property (nonatomic, copy) NSString *videoUri;
 /* 更新时间 */
-@property NSString *videoUpdateDate;
+@property (nonatomic, copy) NSString *videoUpdateDate;
 /* 时长 */
-@property NSString *videoDuration;
+@property (nonatomic, copy) NSString *videoDuration;
 /* 视频简介 */
-@property NSString *videoDesc;
+@property (nonatomic, copy) NSString *videoDesc;
 /* 下载次数（热门） */
-@property NSString *videoDownloadCount;
+@property (nonatomic, copy) NSString *videoDownloadCount;
 
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype)AdVideoWithDict:(NSDictionary *)dict;
-
 
 @end

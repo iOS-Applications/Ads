@@ -1,5 +1,5 @@
 //
-//  DFAdVideoCellTableViewCell.m
+//  DFVideoCellTableViewCell.m
 //  Ads
 //
 //  Created by zhudf on 15/4/19.
@@ -20,7 +20,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setVideo:(DFAdVideo *)video {
+- (void)setVideo:(DFVideo *)video {
     [self.videoImageView sd_setImageWithURL:[NSURL URLWithString:video.videoImage] placeholderImage: [UIImage imageNamed:@"image_animal_1"]];
     self.videoTitleLabel.text = video.videoTitle;
     self.videoDescLabel.text = video.videoUpdateDate;

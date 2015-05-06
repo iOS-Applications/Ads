@@ -27,7 +27,7 @@
     
     NSArray *children = element.children;
     
-    DFAdVideo *ad = [[DFAdVideo alloc] init];
+    DFVideo *ad = [[DFVideo alloc] init];
     
     NSObject *obj;
     for (obj in children) {
@@ -77,7 +77,7 @@
         if ([e.tagName isEqualToString:@"a"]) {
             NSDictionary *attrs = e.attributes;
             
-            DFAdVideo *video = [[DFAdVideo alloc] init];
+            DFVideo *video = [[DFVideo alloc] init];
             video.videoTitle = [attrs objectForKey:@"title"];
             video.videoPageUrl = [attrs objectForKey:@"href"];
             
@@ -119,7 +119,7 @@
         if ([e.tagName isEqualToString:@"a"]) {
             NSDictionary *attrs = e.attributes;
             
-            DFAdVideo *video = [[DFAdVideo alloc] init];
+            DFVideo *video = [[DFVideo alloc] init];
             video.videoTitle = [attrs objectForKey:@"title"];
             video.videoPageUrl = [attrs objectForKey:@"href"];
             
@@ -155,7 +155,7 @@
         return;
     }
     
-    DFAdVideo *ad = [[DFAdVideo alloc] init];
+    DFVideo *ad = [[DFVideo alloc] init];
     // 开始解析
     NSObject *obj;
     for (obj in children) {
@@ -229,7 +229,7 @@
         return;
     }
     
-    DFAdVideo *ad = [[DFAdVideo alloc] init];
+    DFVideo *ad = [[DFVideo alloc] init];
     // 开始解析
     NSObject *obj;
     for (obj in children) {

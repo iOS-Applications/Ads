@@ -171,7 +171,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - UITableView datasource
+#pragma mark - UITableViewDatasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.data.count;
@@ -179,17 +179,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DFVideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    DFAdVideo *video = [self.data objectAtIndex:indexPath.row];
+
+    DFVideo *video = [self.data objectAtIndex:indexPath.row];
     [cell setVideo:video];
     return cell;
 }
 
-#pragma mark - UITableView delegate
+#pragma mark - UITableViewelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self stopPlayback];
-    DFAdVideo *video = [self.data objectAtIndex:indexPath.row];
+    DFVideo *video = [self.data objectAtIndex:indexPath.row];
     DFVideoViewController *videoViewController = [[DFVideoViewController alloc] initWithNibName:nil bundle:nil];
     videoViewController.video = video;
     [self.navigationController pushViewController:videoViewController animated:YES];

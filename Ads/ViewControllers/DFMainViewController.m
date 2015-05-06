@@ -15,8 +15,8 @@
 
 @interface DFMainViewController ()<UITableViewDataSource, UITableViewDelegate>
 
-@property NSMutableArray    *data;
-@property UITableView       *tableView;
+@property (nonatomic, retain) NSMutableArray    *data;
+@property (nonatomic, retain) UITableView       *tableView;
 
 @end
 
@@ -33,16 +33,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self setUpViews];
+    // 只做addSubViews
+    [self.view addSubview:self.tableView];
     [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
     
 }
 
@@ -54,29 +50,15 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-#pragma  mark - Private Methods
-
-- (void)setUpViews {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectOffset(self.view.frame, 0, 0)
-                                                          style:UITableViewStylePlain];
-    
-    UINib *nib = [UINib nibWithNibName:NSStringFromClass([DFVideoTableViewCell class]) bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:CellIdentifier];
-//    self.tableView.estimatedRowHeight = 60;
-    self.tableView.rowHeight = 76;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.tableFooterView = [[UIView alloc] init];
-
-    [self.view addSubview:self.tableView];
-}
-
-#pragma mark - UITableView DataSource
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.data.count;
@@ -85,21 +67,26 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DFVideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    DFAdVideo *video = [self.data objectAtIndex:indexPath.row];
+    DFVideo *video = [self.data objectAtIndex:indexPath.row];
     [cell setVideo:video];
     return cell;
 }
 
-#pragma mark - UITableView Delegate
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    DFAdVideo *video = [self.data objectAtIndex:indexPath.row];
+    DFVideo *video = [self.data objectAtIndex:indexPath.row];
     DFVideoViewController *videoViewController = [[DFVideoViewController alloc] initWithNibName:nil bundle:nil];
     videoViewController.video = video;
+    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] init];
+//    backBarButtonItem.title = @"";
+    self.navigationItem.backBarButtonItem = backBarButtonItem;
     [self.navigationController pushViewController:videoViewController animated:YES];
 }
 
-#pragma mark - Load Data
+#pragma mark - Event response
+
+#pragma mark - Private methods
 
 - (void)loadData {
     [self loadDataWithPageNumber:1];
@@ -129,4 +116,24 @@
         });
     });
 }
+
+#pragma mark - Getters and Setters
+
+- (UITableView *)tableView {
+    if (_tableView == nil) {
+//        _tableView = [[UITableView alloc] initWithFrame:CGRectOffset(self.view.frame, 0, 0)
+//                                                              style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] init];
+        UINib *nib = [UINib nibWithNibName:NSStringFromClass([DFVideoTableViewCell class]) bundle:nil];
+        [_tableView registerNib:nib forCellReuseIdentifier:CellIdentifier];
+        _tableView.estimatedRowHeight = 0;
+        _tableView.rowHeight = 76;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.tableFooterView = [[UIView alloc] init];
+    }
+    return _tableView;
+}
+
 @end

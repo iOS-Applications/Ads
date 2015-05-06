@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DFAdVideo.h"
-#import "TFHpple.h"
+#import "DFVideo.h"
 #import "DFVideoViewController.h"
 #import "DFHtmlParser.h"
 

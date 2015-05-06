@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DFAdVideo.h"
+#import "DFVideo.h"
 
 @interface DFVideoCell : UITableViewCell
 
-@property (nonatomic) DFAdVideo *video;
+@property (nonatomic) DFVideo *video;
 @end

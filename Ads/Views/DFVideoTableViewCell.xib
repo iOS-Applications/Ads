@@ -58,7 +58,7 @@
                 <outlet property="videoImageView" destination="6yG-9b-VMp" id="U3C-XX-cWi"/>
                 <outlet property="videoTitleLabel" destination="eBx-a6-QFp" id="BUF-BO-hpw"/>
             </connections>
-            <point key="canvasLocation" x="-165" y="239.5"/>
+            <point key="canvasLocation" x="-347" y="13"/>
         </tableViewCell>
     </objects>
 </document>
