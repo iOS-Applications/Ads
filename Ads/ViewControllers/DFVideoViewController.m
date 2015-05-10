@@ -16,13 +16,13 @@
 
 @property (weak, nonatomic) IBOutlet UIView         *backView;
 @property (weak, nonatomic) IBOutlet UIView         *carrierView;
-
 @property (weak, nonatomic) IBOutlet UITableView    *tableView;
-@property (nonatomic) NSMutableArray                *data;
 
-@property (nonatomic) VMediaPlayer *player;
+@property (nonatomic, retain) NSMutableArray *data;
 
-@property (nonatomic) BOOL videoHasStopped;
+@property (nonatomic, retain) VMediaPlayer   *player;
+
+@property (nonatomic, assign) BOOL           videoHasStopped;
 
 @end
 
@@ -84,6 +84,11 @@
                                            options:NSRegularExpressionSearch];
             }
             
+            if (range.location == NSNotFound) {
+                // TODO
+                return;
+            }
+             
             NSString *result = [html substringWithRange:range];
             range = [result rangeOfString:@"http://.+\"" options:NSRegularExpressionSearch];
             

@@ -15,6 +15,7 @@
 
 @interface DFMainViewController ()<UITableViewDataSource, UITableViewDelegate>
 
+/* 在block里面修改也不需要加__block修饰· */
 @property (nonatomic, retain) NSMutableArray    *data;
 @property (nonatomic, retain) UITableView       *tableView;
 
@@ -93,37 +94,26 @@
 }
 
 - (void)loadDataWithPageNumber:(int)pageNumber {
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(queue, ^{
-        // GB2312
-        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-        // 热门
-        NSString *url = [NSString stringWithFormat:HOT_ADS_URL, pageNumber];
-        NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:url]
-                                                  encoding:enc
-                                                     error:nil];
-        // 必须转换编码, 内部解析的时候会用到这个
-        html = [html stringByReplacingOccurrencesOfString:@"charset=gb2312" withString:@"charset=utf-8"];
-
-        NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
-        
-        if (!self.data) {
-            self.data = [[NSMutableArray alloc] init];
-        }
-        [self.data addObjectsFromArray:[DFHtmlParser parseCategoryPage:data]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    });
+    NSString *url = [NSString stringWithFormat:HOT_ADS_URL, pageNumber];
+    [DFVideo getCategoryVideoWithUrl:url
+                             success:^(NSObject *result) {
+                                 if (!self.data) {
+                                     self.data = [[NSMutableArray alloc] init];
+                                 }
+                                 [self.data addObjectsFromArray:(NSArray *)result];
+                                 [self.tableView reloadData];
+                             } failure:^(NSError *error) {
+                                 //
+                             }];
 }
 
 #pragma mark - Getters and Setters
 
 - (UITableView *)tableView {
     if (_tableView == nil) {
-//        _tableView = [[UITableView alloc] initWithFrame:CGRectOffset(self.view.frame, 0, 0)
-//                                                              style:UITableViewStylePlain];
-        _tableView = [[UITableView alloc] init];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectOffset(self.view.frame, 0, 0)
+                                                              style:UITableViewStylePlain];
+//        _tableView = [[UITableView alloc] init];
         UINib *nib = [UINib nibWithNibName:NSStringFromClass([DFVideoTableViewCell class]) bundle:nil];
         [_tableView registerNib:nib forCellReuseIdentifier:CellIdentifier];
         _tableView.estimatedRowHeight = 0;

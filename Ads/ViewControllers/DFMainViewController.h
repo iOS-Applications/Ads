@@ -10,7 +10,8 @@
 #import "DFVideo.h"
 #import "DFVideoViewController.h"
 #import "DFHtmlParser.h"
+#import "DFBaseViewController.h"
 
-@interface DFMainViewController : UIViewController
+@interface DFMainViewController : DFBaseViewController
 
 @end

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DFApi.h"
 
-@interface DFVideo : NSObject
+@class DFParser;
 
+@interface DFVideo : NSObject<NSCopying>
 
 /* 标题 */
 @property (nonatomic, copy) NSString *videoTitle;
@@ -30,6 +32,23 @@
 
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
-+ (instancetype)AdVideoWithDict:(NSDictionary *)dict;
++ (instancetype)videoWithDict:(NSDictionary *)dict;
 
++ (void)getLatestVideoWithUrl:(NSString *)url
+                      success:(successBlock)success
+                      failure:(failureBlock)failure;
++ (void)getCategoryVideoWithUrl:(NSString *)url
+                      success:(successBlock)success
+                      failure:(failureBlock)failure;
+
++ (void)getRecommandedVideoWithUrl:(NSString *)url
+                      success:(successBlock)success
+                      failure:(failureBlock)failure;
++ (void)getRelatedVideoWithUrl:(NSString *)url
+                      success:(successBlock)success
+                      failure:(failureBlock)failure;
+
++ (void)getVideoWithName:(NSString *)name
+                      success:(successBlock)success
+                      failure:(failureBlock)failure;
 @end

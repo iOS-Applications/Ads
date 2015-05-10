@@ -67,6 +67,7 @@
                     <exclude reference="qBf-Oo-WSb"/>
                 </mask>
             </variation>
+            <point key="canvasLocation" x="275" y="254"/>
         </view>
     </objects>
 </document>

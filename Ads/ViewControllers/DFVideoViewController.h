@@ -10,9 +10,10 @@
 #import "DFVideo.h"
 #import <MediaAccessibility/MediaAccessibility.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "DFBaseViewController.h"
 
-@interface DFVideoViewController : UIViewController
+@interface DFVideoViewController : DFBaseViewController
 
-@property DFVideo *video;
+@property (nonatomic, copy) DFVideo *video;
 
 @end
