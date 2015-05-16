@@ -35,20 +35,20 @@
 + (instancetype)videoWithDict:(NSDictionary *)dict;
 
 + (void)getLatestVideoWithUrl:(NSString *)url
-                      success:(successBlock)success
-                      failure:(failureBlock)failure;
+                      success:(DFHttpRequestSuccessBlock)success
+                      failure:(DFHttpRequestFailureBlock)failure;
 + (void)getCategoryVideoWithUrl:(NSString *)url
-                      success:(successBlock)success
-                      failure:(failureBlock)failure;
+                      success:(DFHttpRequestSuccessBlock)success
+                      failure:(DFHttpRequestFailureBlock)failure;
 
-+ (void)getRecommandedVideoWithUrl:(NSString *)url
-                      success:(successBlock)success
-                      failure:(failureBlock)failure;
++ (void)getHotestVideoWithUrl:(NSString *)url
+                      success:(DFHttpRequestSuccessBlock)success
+                      failure:(DFHttpRequestFailureBlock)failure;
 + (void)getRelatedVideoWithUrl:(NSString *)url
-                      success:(successBlock)success
-                      failure:(failureBlock)failure;
+                      success:(DFHttpRequestSuccessBlock)success
+                      failure:(DFHttpRequestFailureBlock)failure;
 
 + (void)getVideoWithName:(NSString *)name
-                      success:(successBlock)success
-                      failure:(failureBlock)failure;
+                      success:(DFHttpRequestSuccessBlock)success
+                      failure:(DFHttpRequestFailureBlock)failure;
 @end

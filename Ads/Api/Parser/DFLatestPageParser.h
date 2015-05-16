@@ -8,6 +8,6 @@
 
 #import "DFParser.h"
 
-@interface DFLatestPageAdsParser : DFParser
+@interface DFLatestPageParser : DFParser
 
 @end

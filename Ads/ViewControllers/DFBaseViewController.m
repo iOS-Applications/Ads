@@ -7,6 +7,7 @@
 //
 
 #import "DFBaseViewController.h"
+#import <UMengAnalytics/MobClick.h>
 
 @interface DFBaseViewController ()
 
@@ -16,12 +17,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    NSLog(@"%@", @"viewDidLoad");
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [MobClick beginLogPageView:NSStringFromClass([self class])];
+    
+    NSLog(@"%@", @"viewWillAppear");
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"%@", @"viewDidAppear");
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:NSStringFromClass([self class])];
+    NSLog(@"%@", @"viewWillDisappear");
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    NSLog(@"%@", @"viewDidDisAppear");
+}
+
+- (void)viewDidUnload {
+    NSLog(@"%@", @"viewDidUnload");
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSLog(@"%@", @"didReceiveMemoryWarning");
 }
 
 - (void)showProgressViewWithMessage:(NSString *)message {

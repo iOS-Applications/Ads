@@ -14,7 +14,7 @@
 
 @implementation DFApi
 
-+ (instancetype)shareDFApi
++ (instancetype)shareInstance
 {
     static DFApi *api = nil;
     static dispatch_once_t onceToken;
@@ -26,10 +26,10 @@
 
 - (void)requestWithUrl:(NSString *)url
             parserType:(DFParserType)parserType
-               success:(successBlock)success
-               failure:(failureBlock)failure
+               success:(DFHttpRequestSuccessBlock)success
+               failure:(DFHttpRequestFailureBlock)failure
 {
-    [[DFHttpClient shareDFHttpClient] requestWithUrl:url
+    [[DFHttpClient shareInstance] requestWithUrl:url
                                           parserType:parserType
                                              success:success
                                              failure:failure];
@@ -38,10 +38,10 @@
 - (void)requestWithUrl:(NSString *)url
             parameters:(NSDictionary *)params
             parserType:(DFParserType)parserType
-               success:(successBlock)success
-               failure:(failureBlock)failure
+               success:(DFHttpRequestSuccessBlock)success
+               failure:(DFHttpRequestFailureBlock)failure
 {
-    [[DFHttpClient shareDFHttpClient] requestWithUrl:url
+    [[DFHttpClient shareInstance] requestWithUrl:url
                                           parameters:params
                                           parserType:parserType
                                              success:success

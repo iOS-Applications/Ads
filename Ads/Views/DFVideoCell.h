@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DFVideo.h"
+
+@class DFVideo;
 
 @interface DFVideoCell : UITableViewCell
 

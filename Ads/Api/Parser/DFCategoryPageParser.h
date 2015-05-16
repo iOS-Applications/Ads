@@ -8,6 +8,6 @@
 
 #import "DFParser.h"
 
-@interface DFCategoryPageAdsParser : DFParser
+@interface DFCategoryPageParser : DFParser
 
 @end

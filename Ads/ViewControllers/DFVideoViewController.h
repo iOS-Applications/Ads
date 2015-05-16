@@ -6,11 +6,9 @@
 //  Copyright (c) 2015年 Bebeeru. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "DFVideo.h"
-#import <MediaAccessibility/MediaAccessibility.h>
-#import <SDWebImage/UIImageView+WebCache.h>
 #import "DFBaseViewController.h"
+
+@class DFVideo;
 
 @interface DFVideoViewController : DFBaseViewController
 

@@ -7,19 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TFHpple.h"
-#import "TFHppleElement.h"
-
-@class DFLatestPageAdsParser;
-@class DFSearchedAdsParser;
 
 typedef NS_ENUM(NSUInteger, DFParserType){
-    kDFParserTypeParseLatestPageAds,
-    kDFParserTypeParseCategoryPageAds,
-    kDFParserTypeParseSearchResultPageAds,
+    kDFParserType_LatestPageVideoParser,    // 最近更新
+    kDFParserType_CategoryPageVideoParser,  // 分类视频 （主要用这个）
+    kDFParserType_SearchResultPageVideoParser,  // 搜索结果
     
-    kDFParserTypeParseRelatedAds,
-    kDFParserTypeParseRecommandedAds,
+    kDFParserType_PlaybackPageRelatedVideoParser, // 相关视频
+    kDFParserType_PlaybackPageHotestVideoParser,  // 本类最热
 };
 
 @interface DFParser : NSObject

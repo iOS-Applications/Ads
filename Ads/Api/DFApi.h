@@ -12,17 +12,17 @@
 
 @interface DFApi : NSObject
 
-+ (instancetype)shareDFApi;
++ (instancetype)shareInstance;
 
 - (void)requestWithUrl:(NSString *)url
             parserType:(DFParserType)parserType
-               success:(successBlock)success
-               failure:(failureBlock)failure;
+               success:(DFHttpRequestSuccessBlock)success
+               failure:(DFHttpRequestFailureBlock)failure;
 
 - (void)requestWithUrl:(NSString *)url
             parameters:(NSDictionary *)params
             parserType:(DFParserType)parserType
-               success:(successBlock)success
-               failure:(failureBlock)failure;
+               success:(DFHttpRequestSuccessBlock)success
+               failure:(DFHttpRequestFailureBlock)failure;
 
 @end

@@ -8,10 +8,5 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString *HOT_ADS_URL = @"http://www.adzop.com/downlist/r_3_%d.html";
+static NSString *const HOT_ADS_URL = @"http://www.adzop.com/downlist/r_3_%d.html";
 
-static NSString *CellIdentifier = @"CellIdentifier";
-
-@interface DFConstants : NSObject
-
-@end

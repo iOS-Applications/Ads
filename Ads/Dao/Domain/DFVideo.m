@@ -59,40 +59,65 @@
     return result;
 }
 
-#pragma mark - 获取数据
+#pragma mark -
 
-+ (void)getLatestVideoWithUrl:(NSString *)url success:(successBlock)success failure:(failureBlock)failure {
-    [[DFApi shareDFApi] requestWithUrl:url
-                            parserType:kDFParserTypeParseLatestPageAds
+#pragma mark 最近更新
++ (void)getLatestVideoWithUrl:(NSString *)url
+                      success:(DFHttpRequestSuccessBlock)success
+                      failure:(DFHttpRequestFailureBlock)failure {
+    [[DFApi shareInstance] requestWithUrl:url
+                            parserType:kDFParserType_LatestPageVideoParser
                                success:success
                                failure:false];
 }
 
-+ (void)getCategoryVideoWithUrl:(NSString *)url success:(successBlock)success failure:(failureBlock)failure
+#pragma mark 分类视频
++ (void)getCategoryVideoWithUrl:(NSString *)url
+                        success:(DFHttpRequestSuccessBlock)success
+                        failure:(DFHttpRequestFailureBlock)failure
 {
-    [[DFApi shareDFApi] requestWithUrl:url
-                            parserType:kDFParserTypeParseCategoryPageAds
+    [[DFApi shareInstance] requestWithUrl:url
+                            parserType:kDFParserType_CategoryPageVideoParser
                                success:success
                                failure:false];
 }
 
-+ (void)getRecommandedVideoWithUrl:(NSString *)url success:(successBlock)success failure:(failureBlock)failure
++ (void)getSearchedVideosWithUrl:(NSString *)url
+                   success:(DFHttpRequestSuccessBlock)success
+                   failure:(DFHttpRequestFailureBlock)failure
 {
-    [[DFApi shareDFApi] requestWithUrl:url
-                            parserType:kDFParserTypeParseRecommandedAds
+    [[DFApi shareInstance] requestWithUrl:url
+                            parserType:kDFParserType_SearchResultPageVideoParser
                                success:success
                                failure:false];
+    
 }
 
-+ (void)getRelatedVideoWithUrl:(NSString *)url success:(successBlock)success failure:(failureBlock)failure
+#pragma mark 本类最热
++ (void)getHotestVideoWithUrl:(NSString *)url
+                           success:(DFHttpRequestSuccessBlock)success
+                           failure:(DFHttpRequestFailureBlock)failure
 {
-    [[DFApi shareDFApi] requestWithUrl:url
-                            parserType:kDFParserTypeParseRelatedAds
+    [[DFApi shareInstance] requestWithUrl:url
+                            parserType:kDFParserType_PlaybackPageHotestVideoParser
                                success:success
                                failure:false];
 }
 
-+ (void)getVideoWithName:(NSString *)name success:(successBlock)success failure:(failureBlock)failure {
+#pragma mark 相关视频
++ (void)getRelatedVideoWithUrl:(NSString *)url
+                       success:(DFHttpRequestSuccessBlock)success
+                       failure:(DFHttpRequestFailureBlock)failure
+{
+    [[DFApi shareInstance] requestWithUrl:url
+                            parserType:kDFParserType_PlaybackPageRelatedVideoParser
+                               success:success
+                               failure:false];
+}
+
++ (void)getVideoWithName:(NSString *)name
+                 success:(DFHttpRequestSuccessBlock)success
+                 failure:(DFHttpRequestFailureBlock)failure {
     
 }
 @end

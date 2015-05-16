@@ -6,39 +6,32 @@
 //  Copyright (c) 2015年 Bebeeru. All rights reserved.
 //
 
-#import "DFLatestPageAdsParser.h"
+#import "DFLatestPageParser.h"
+#import "TFHpple.h"
+#import "TFHppleElement.h"
 #import "DFVideo.h"
 
-@implementation DFLatestPageAdsParser
+@implementation DFLatestPageParser
 
 - (void)parseData:(NSData *)data
           success:(void (^)(NSArray *))success
           failure:(void (^)(NSError *))failure
 {
-    NSMutableArray *result = [[NSMutableArray alloc] init];
-    @try {
-        [self parseData:data addResultTo:result];
-        success([result copy]);
-    }
-    @catch (NSException *exception) {
+    NSMutableArray *result = [NSMutableArray array];
+    
+    TFHpple *doc = [[TFHpple alloc] initWithHTMLData:data];
+    if (doc == nil) {
         failure(nil);
     }
-}
-
-- (void)parseData:(NSData *)data
-      addResultTo:(NSMutableArray *)result
-{
-    TFHpple *doc = [[TFHpple alloc] initWithHTMLData:data];
     
     NSArray *elements = [doc searchWithXPathQuery:@"//div[@class='newcontent']"];
-    
     for (int i = 0; i < elements.count; i++) {
-        @try {
+        @autoreleasepool {
             [self parseElement:[elements objectAtIndex:i] addResultTo:result];
         }
-        @catch (NSException *exception) {
-        }
     }
+    
+    success([result copy]);
 }
 
 - (void)parseElement:(TFHppleElement *)element addResultTo:(NSMutableArray *)array

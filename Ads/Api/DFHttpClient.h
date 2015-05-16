@@ -7,24 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFNetworking.h"
 #import "DFParser.h"
 
-typedef void (^successBlock)(NSObject *result);
-typedef void (^failureBlock)(NSError *error);
+typedef void (^DFHttpRequestSuccessBlock)(NSObject *result);
+typedef void (^DFHttpRequestFailureBlock)(NSError *error);
 
 @interface DFHttpClient : NSObject
 
-+ (instancetype)shareDFHttpClient;
++ (instancetype)shareInstance;
 
 - (void)requestWithUrl:(NSString *)url
             parserType:(DFParserType)parserType
-               success:(successBlock)success
-               failure:(failureBlock)failure;
+               success:(DFHttpRequestSuccessBlock)success
+               failure:(DFHttpRequestFailureBlock)failure;
 
 - (void)requestWithUrl:(NSString *)url
              parameters:(NSDictionary *)params
             parserType:(DFParserType)type
-               success:(successBlock)success
-               failure:(failureBlock)failure;
+               success:(DFHttpRequestSuccessBlock)success
+               failure:(DFHttpRequestFailureBlock)failure;
 @end

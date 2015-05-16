@@ -12,6 +12,8 @@
 #import "DFVideoTableViewCell.h"
 #import "DFConstants.h"
 
+static NSString *CellIdentifier = @"CellIdentifier";
+
 @interface DFVideoViewController ()<VMediaPlayerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView         *backView;
@@ -34,6 +36,7 @@
     }
     return self;
 }
+
 
 #pragma  mark - Life Cycle
 
@@ -85,7 +88,7 @@
             }
             
             if (range.location == NSNotFound) {
-                // TODO
+                // TODO 关闭当前页面
                 return;
             }
              
@@ -102,24 +105,13 @@
 }
 
 - (void)loadData {
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(queue, ^{
-        // GB2312
-        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-        // 热门
-        NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:self.video.videoPageUrl]
-                                                  encoding:enc
-                                                     error:nil];
-        // 必须转换编码, 内部解析的时候会用到这个
-        html = [html stringByReplacingOccurrencesOfString:@"charset=gb2312" withString:@"charset=utf-8"];
-        
-        NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
-        
-        self.data = [DFHtmlParser parseVideoPageHotestVideos:data];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    });
+    [DFVideo getHotestVideoWithUrl:self.video.videoPageUrl
+                           success:^(NSObject *result) {
+                               [self.data addObjectsFromArray:(NSArray *)result];
+                               [self.tableView reloadData];
+                           } failure:^(NSError *error) {
+                               // TODO
+                           }];
 }
 
 - (void)stopPlayback {
@@ -202,5 +194,14 @@
     // 修改NavigationControl的Stack
     self.navigationController.viewControllers = [NSArray arrayWithObjects:[self.navigationController.viewControllers firstObject], videoViewController, nil];
     NSLog(@"%@", self.navigationController.viewControllers);
+}
+
+#pragma mark - Getters and Setters
+
+- (NSMutableArray *)data {
+    if (_data == nil) {
+        _data = [[NSMutableArray alloc] init];
+    }
+    return _data;
 }
 @end

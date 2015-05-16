@@ -13,7 +13,7 @@
 
 static const NSString *gbk = @"";
 
-+ (instancetype)shareDFHttpClient
++ (instancetype)shareInstance
 {
     static DFHttpClient *httpClient = nil;
     static dispatch_once_t onceToken;
@@ -25,8 +25,8 @@ static const NSString *gbk = @"";
 
 - (void)requestWithUrl:(NSString *)url
             parserType:(DFParserType)parserType
-               success:(successBlock)success
-               failure:(failureBlock)failure
+               success:(DFHttpRequestSuccessBlock)success
+               failure:(DFHttpRequestFailureBlock)failure
 {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
@@ -59,8 +59,8 @@ static const NSString *gbk = @"";
 - (void)requestWithUrl:(NSString *)url
             parameters:(NSDictionary *)params
             parserType:(DFParserType)type
-               success:(successBlock)success
-               failure:(failureBlock)failure
+               success:(DFHttpRequestSuccessBlock)success
+               failure:(DFHttpRequestFailureBlock)failure
 {
     
 }

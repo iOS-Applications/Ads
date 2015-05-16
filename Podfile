@@ -9,6 +9,7 @@ pod 'hpple'
 pod 'MJRefresh'
 pod 'FMDB'
 pod 'Masonry'
+pod 'UMengAnalytics'
 
 target 'Ads' do
 

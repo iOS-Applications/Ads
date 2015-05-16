@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DFVideo.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+
+@class DFVideo;
 
 @interface DFVideoTableViewCell : UITableViewCell
 

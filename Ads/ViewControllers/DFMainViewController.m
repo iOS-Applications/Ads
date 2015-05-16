@@ -7,17 +7,27 @@
 //
 
 #import "DFMainViewController.h"
+
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIView+WebCacheOperation.h>
+#import <MJRefresh/UIView+MJExtension.h>
+#import <MJRefresh/MJRefresh.h>
+
 #import "DFConstants.h"
 #import "DFVideoCell.h"
+#import "DFVideoViewController.h"
 #import "DFVideoTableViewCell.h"
+#import "DFVideo.h"
+
+static NSString *CellIdentifier = @"CellIdentifier";
 
 @interface DFMainViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 /* 在block里面修改也不需要加__block修饰· */
-@property (nonatomic, retain) NSMutableArray    *data;
 @property (nonatomic, retain) UITableView       *tableView;
+@property (nonatomic, retain) NSMutableArray    *data;
+
+@property (nonatomic, assign) int               currentPage;
 
 @end
 
@@ -36,7 +46,12 @@
     [super viewDidLoad];
     // 只做addSubViews
     [self.view addSubview:self.tableView];
+    [self layoutPageSubviews];
     [self loadData];
+}
+
+- (void)layoutPageSubviews {
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -93,17 +108,31 @@
     [self loadDataWithPageNumber:1];
 }
 
+- (void)loadMoreData {
+    self.currentPage++;
+    [self loadDataWithPageNumber:self.currentPage];
+}
+
 - (void)loadDataWithPageNumber:(int)pageNumber {
+    __weak typeof(self) weakSelf = self;
+    
     NSString *url = [NSString stringWithFormat:HOT_ADS_URL, pageNumber];
     [DFVideo getCategoryVideoWithUrl:url
                              success:^(NSObject *result) {
-                                 if (!self.data) {
-                                     self.data = [[NSMutableArray alloc] init];
+                                 if (!weakSelf.data) {
+                                     weakSelf.data = [NSMutableArray array];
                                  }
-                                 [self.data addObjectsFromArray:(NSArray *)result];
-                                 [self.tableView reloadData];
+                                 if (pageNumber == 1) {
+                                     [weakSelf.data removeAllObjects];
+                                 }
+                                 [weakSelf.data addObjectsFromArray:(NSArray *)result];
+                                 [weakSelf.tableView reloadData];
+                                 
+                                 [weakSelf.tableView.header endRefreshing];
+                                 [weakSelf.tableView.footer endRefreshing];
                              } failure:^(NSError *error) {
-                                 //
+                                 [weakSelf.tableView.header endRefreshing];
+                                 [weakSelf.tableView.footer endRefreshing];
                              }];
 }
 
@@ -122,6 +151,45 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.tableFooterView = [[UIView alloc] init];
+       
+        // 下拉刷新
+        // 添加动画图片的下拉刷新
+        // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+        [_tableView addGifHeaderWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+        
+        // 设置普通状态的动画图片
+        NSMutableArray *idleImages = [NSMutableArray array];
+        for (NSUInteger i = 1; i<=60; i++) {
+            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"dropdown_anim__000%zd", i]];
+            [idleImages addObject:image];
+        }
+        [_tableView.gifHeader setImages:idleImages forState:MJRefreshHeaderStateIdle];
+        
+        // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+        NSMutableArray *refreshingImages = [NSMutableArray array];
+        for (NSUInteger i = 1; i<=3; i++) {
+            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"dropdown_loading_0%zd", i]];
+            [refreshingImages addObject:image];
+        }
+        [_tableView.gifHeader setImages:refreshingImages forState:MJRefreshHeaderStatePulling];
+        
+        // 设置正在刷新状态的动画图片
+        [_tableView.gifHeader setImages:refreshingImages forState:MJRefreshHeaderStateRefreshing];
+        // 在这个例子中，即将刷新 和 正在刷新 用的是一样的动画图片
+        
+        // 马上进入刷新状态
+        [_tableView.gifHeader beginRefreshing];
+        
+        // 此时self.tableView.header == self.tableView.gifHeader
+        
+        
+        __weak typeof(self) weakSelf = self;
+        // 上拉刷新
+        // 添加传统的上拉刷新
+        // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+        [self.tableView addLegendFooterWithRefreshingBlock:^{
+            [weakSelf loadMoreData];
+        }];
     }
     return _tableView;
 }

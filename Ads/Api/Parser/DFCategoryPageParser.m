@@ -6,35 +6,37 @@
 //  Copyright (c) 2015年 Bebeeru. All rights reserved.
 //
 
-#import "DFCategoryPageAdsParser.h"
+#import "DFCategoryPageParser.h"
+#import "TFHpple.h"
+#import "TFHppleElement.h"
 #import "DFVideo.h"
 
-@implementation DFCategoryPageAdsParser
+@implementation DFCategoryPageParser
 
 - (void)parseData:(NSData *)data
           success:(void (^)(NSArray *))success
           failure:(void (^)(NSError *))failure
 {
-    NSMutableArray *result = [[NSMutableArray alloc] init];
-    @try {
-        [self parseData:data addResultTo:result];
-        success([result copy]);
-    }
-    @catch (NSException *exception) {
+    NSMutableArray *result = [NSMutableArray array];
+    
+    TFHpple *doc = [[TFHpple alloc] initWithHTMLData:data];
+    if (doc == nil) {
         failure(nil);
     }
+    
+    NSArray *elements = [doc searchWithXPathQuery:@"//div[@class='listinfo']"];
+    for (int i = 0; i < elements.count; i++) {
+        @autoreleasepool {
+            [self parseElement:[elements objectAtIndex:i] addResultTo:result];
+        }
+    }
+    
+    success([result copy]);
 }
 
-- (NSMutableArray *)parseData:(NSData *)data
+- (void)parseData:(NSData *)data
                           addResultTo:(NSMutableArray *)result
 {
-    TFHpple *doc = [[TFHpple alloc] initWithHTMLData:data];
-    NSArray *elements = [doc searchWithXPathQuery:@"//div[@class='listinfo']"];
-    
-    for (int i = 0; i < elements.count; i++) {
-        [self parseElement:[elements objectAtIndex:i] addResultTo:result];
-    }
-    return result;
 }
 
 - (void)parseElement:(TFHppleElement *)element
