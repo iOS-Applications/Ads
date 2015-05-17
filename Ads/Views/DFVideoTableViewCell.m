@@ -23,7 +23,8 @@
 }
 
 - (void)setVideo:(DFVideo *)video {
-    [self.videoImageView sd_setImageWithURL:[NSURL URLWithString:video.videoImage] placeholderImage: [UIImage imageNamed:@"image_animal_1"]];
+    [self.videoImageView sd_setImageWithURL:[NSURL URLWithString:video.videoImage]
+                           placeholderImage: [UIImage imageNamed:@"image_animal_1"]];
     self.videoTitleLabel.text = video.videoTitle;
     self.videoDescLabel.text = video.videoUpdateDate;
 }

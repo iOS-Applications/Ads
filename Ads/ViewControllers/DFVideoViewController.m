@@ -7,6 +7,7 @@
 //
 
 #import "DFVideoViewController.h"
+#import <Masonry/Masonry.h>
 #import "VMediaPlayer.h"
 #import "DFHtmlParser.h"
 #import "DFVideoTableViewCell.h"
@@ -16,9 +17,10 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 @interface DFVideoViewController ()<VMediaPlayerDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView         *backView;
-@property (weak, nonatomic) IBOutlet UIView         *carrierView;
-@property (weak, nonatomic) IBOutlet UITableView    *tableView;
+@property (nonatomic, strong) UIView        *backView;
+@property (nonatomic, strong) UIView        *carrierView;
+@property (nonatomic, strong) UITableView   *tableView;
+@property (nonatomic, strong) UILabel       *categoryLable;
 
 @property (nonatomic, retain) NSMutableArray *data;
 
@@ -37,89 +39,37 @@ static NSString *CellIdentifier = @"CellIdentifier";
     return self;
 }
 
-
 #pragma  mark - Life Cycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = self.video.videoTitle;
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    [self setUpViews];
+    [self.backView addSubview:self.carrierView];
+    
+    [self.view addSubview:self.backView];
+    [self.view addSubview:self.categoryLable];
+    [self.view addSubview:self.tableView];
+    
+    [self layoutPageSubviews];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [self getVideoUri];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated
+{
     [self stopPlayback];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Private methods
-
-- (void)setUpViews {
-    UINib *nib = [UINib nibWithNibName:NSStringFromClass([DFVideoTableViewCell class]) bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:CellIdentifier];
-    self.tableView.rowHeight = 66.0;
-    self.tableView.dataSource = self;
-    self.tableView.delegate   = self;
-    self.tableView.tableFooterView = [[UIView alloc] init];
-}
-
-- (void)getVideoUri {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.video.videoPageUrl]];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        if (connectionError) {
-            NSLog(@"Error");
-        } else {
-            // kCFStringEncodingGB_2312_80 这个不是gb2312
-            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-            NSString *html = [[NSString alloc] initWithData:data encoding:enc];
-            
-            NSRange range = [html rangeOfString:@"var vMp4url.*;"
-                                        options:NSRegularExpressionSearch];
-            
-            if (range.location == NSNotFound) {
-               range = [html rangeOfString:@"so.addVariable.+\"http://v.adzop.com.+\""
-                                           options:NSRegularExpressionSearch];
-            }
-            
-            if (range.location == NSNotFound) {
-                // TODO 关闭当前页面
-                return;
-            }
-             
-            NSString *result = [html substringWithRange:range];
-            range = [result rangeOfString:@"http://.+\"" options:NSRegularExpressionSearch];
-            
-            if (range.location != NSNotFound) {
-                range.length--;
-                NSString *realVideoUri = [result substringWithRange:range];
-                [self play:realVideoUri];
-            }
-        }
-    }];
-}
-
-- (void)loadData {
-    [DFVideo getHotestVideoWithUrl:self.video.videoPageUrl
-                           success:^(NSObject *result) {
-                               [self.data addObjectsFromArray:(NSArray *)result];
-                               [self.tableView reloadData];
-                           } failure:^(NSError *error) {
-                               // TODO
-                           }];
-}
-
-- (void)stopPlayback {
-    if (!self.videoHasStopped) {
-        [self.player reset];
-        [self.player unSetupPlayer];
-    }
-    self.videoHasStopped = YES;
 }
 
 #pragma mark - Vitamio control
@@ -195,10 +145,141 @@ static NSString *CellIdentifier = @"CellIdentifier";
     self.navigationController.viewControllers = [NSArray arrayWithObjects:[self.navigationController.viewControllers firstObject], videoViewController, nil];
     NSLog(@"%@", self.navigationController.viewControllers);
 }
+#pragma mark - Private methods
+
+- (void)getVideoUri {
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.video.videoPageUrl]];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (connectionError) {
+            NSLog(@"Error");
+        } else {
+            // kCFStringEncodingGB_2312_80 这个不是gb2312
+            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            NSString *html = [[NSString alloc] initWithData:data encoding:enc];
+            
+            NSRange range = [html rangeOfString:@"var vMp4url.*;"
+                                        options:NSRegularExpressionSearch];
+            
+            if (range.location == NSNotFound) {
+                range = [html rangeOfString:@"so.addVariable.+\"http://v.adzop.com.+\""
+                                    options:NSRegularExpressionSearch];
+            }
+            
+            if (range.location == NSNotFound) {
+                // TODO 关闭当前页面
+                return;
+            }
+            
+            NSString *result = [html substringWithRange:range];
+            range = [result rangeOfString:@"http://.+\"" options:NSRegularExpressionSearch];
+            
+            if (range.location != NSNotFound) {
+                range.length--;
+                NSString *realVideoUri = [result substringWithRange:range];
+                [self play:realVideoUri];
+            }
+        }
+    }];
+}
+
+- (void)loadData {
+    [DFVideo getHotestVideoWithUrl:self.video.videoPageUrl
+                           success:^(NSObject *result) {
+                               [self.data addObjectsFromArray:(NSArray *)result];
+                               [self.tableView reloadData];
+                           } failure:^(NSError *error) {
+                               // TODO
+                           }];
+}
+
+- (void)stopPlayback {
+    if (!self.videoHasStopped) {
+        [self.player reset];
+        [self.player unSetupPlayer];
+    }
+    self.videoHasStopped = YES;
+}
+
+- (void)layoutPageSubviews
+{
+    UIView *superView = self.view;
+    CGFloat padding = 8.0;
+    
+    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(superView.mas_leading).offset(padding * 2);
+        make.trailing.equalTo(superView.mas_trailing).offset(-padding * 2);
+        make.top.equalTo(superView.mas_top).offset(padding + 20 + 44);
+        make.bottom.equalTo(self.categoryLable.mas_top).offset(-padding);
+        
+        make.height.equalTo(@135);
+    }];
+    
+    [self.carrierView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.backView);
+    }];
+    
+    [self.categoryLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.and.trailing.equalTo(self.backView);
+        make.top.equalTo(self.backView.mas_bottom).offset(padding);
+        make.bottom.equalTo(self.tableView.mas_top).offset(-padding);
+        
+        make.height.greaterThanOrEqualTo(@20);
+    }];
+
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(superView.mas_leading);
+        make.trailing.equalTo(superView.mas_trailing).offset(-padding * 2);
+        make.top.equalTo(self.categoryLable.mas_bottom).offset(padding);
+        make.bottom.equalTo(superView.mas_bottom).offset(-padding);
+    }];
+}
 
 #pragma mark - Getters and Setters
+- (UIView *)backView
+{
+    if (_backView == nil) {
+        _backView = [UIView new];
+        _backView.backgroundColor = [UIColor blackColor];
+        [_backView setClipsToBounds:YES];
+    }
+    return _backView;
+}
 
-- (NSMutableArray *)data {
+- (UIView *)carrierView
+{
+    if (_carrierView == nil) {
+        _carrierView = [UIView new];
+    }
+    return _carrierView;
+}
+
+- (UIView *)tableView
+{
+    if (_tableView == nil) {
+        _tableView = [UITableView new];
+        UINib *nib = [UINib nibWithNibName:NSStringFromClass([DFVideoTableViewCell class]) bundle:nil];
+        [_tableView registerNib:nib forCellReuseIdentifier:CellIdentifier];
+        _tableView.rowHeight    = 66.0;
+        _tableView.dataSource   = self;
+        _tableView.delegate     = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tableView.separatorInset = UIEdgeInsetsMake(0, 8, 0, 8);
+        _tableView.tableFooterView = [[UIView alloc] init];
+    }
+    return _tableView;
+}
+
+- (UILabel *)categoryLable
+{
+    if (_categoryLable == nil) {
+        _categoryLable = [UILabel new];
+        _categoryLable.textColor = [UIColor blueColor];
+        _categoryLable.text = @"推荐视频";
+    }
+    return _categoryLable;
+}
+- (NSMutableArray *)data
+{
     if (_data == nil) {
         _data = [[NSMutableArray alloc] init];
     }

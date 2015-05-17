@@ -12,12 +12,14 @@
 #import <SDWebImage/UIView+WebCacheOperation.h>
 #import <MJRefresh/UIView+MJExtension.h>
 #import <MJRefresh/MJRefresh.h>
+#import <Masonry/Masonry.h>
 
 #import "DFConstants.h"
 #import "DFVideoCell.h"
 #import "DFVideoViewController.h"
 #import "DFVideoTableViewCell.h"
 #import "DFVideo.h"
+#import "DFMainControllerTableViewCell.h"
 
 static NSString *CellIdentifier = @"CellIdentifier";
 
@@ -47,11 +49,6 @@ static NSString *CellIdentifier = @"CellIdentifier";
     // 只做addSubViews
     [self.view addSubview:self.tableView];
     [self layoutPageSubviews];
-    [self loadData];
-}
-
-- (void)layoutPageSubviews {
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -59,7 +56,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    
+    [self loadNewData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -92,7 +89,8 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DFVideo *video = [self.data objectAtIndex:indexPath.row];
-    DFVideoViewController *videoViewController = [[DFVideoViewController alloc] initWithNibName:nil bundle:nil];
+//    DFVideoViewController *videoViewController = [[DFVideoViewController alloc] initWithNibName:nil bundle:nil];
+    DFVideoViewController *videoViewController = [DFVideoViewController new];
     videoViewController.video = video;
     UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] init];
 //    backBarButtonItem.title = @"";
@@ -104,8 +102,9 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 #pragma mark - Private methods
 
-- (void)loadData {
+- (void)loadNewData {
     [self loadDataWithPageNumber:1];
+    self.currentPage = 1;
 }
 
 - (void)loadMoreData {
@@ -119,35 +118,47 @@ static NSString *CellIdentifier = @"CellIdentifier";
     NSString *url = [NSString stringWithFormat:HOT_ADS_URL, pageNumber];
     [DFVideo getCategoryVideoWithUrl:url
                              success:^(NSObject *result) {
-                                 if (!weakSelf.data) {
-                                     weakSelf.data = [NSMutableArray array];
-                                 }
-                                 if (pageNumber == 1) {
+                                 NSArray *newData = (NSArray *)result;
+                                 if (pageNumber == 1 && [newData count] != 0) {
                                      [weakSelf.data removeAllObjects];
                                  }
-                                 [weakSelf.data addObjectsFromArray:(NSArray *)result];
+                                 [weakSelf.data addObjectsFromArray:newData];
                                  [weakSelf.tableView reloadData];
                                  
-                                 [weakSelf.tableView.header endRefreshing];
-                                 [weakSelf.tableView.footer endRefreshing];
+                                 if ([weakSelf.tableView.header isRefreshing]) {
+                                     [weakSelf.tableView.header endRefreshing];
+                                 }
+                                 if ([weakSelf.tableView.footer isRefreshing]) {
+                                     [weakSelf.tableView.footer endRefreshing];
+                                 }
                              } failure:^(NSError *error) {
-                                 [weakSelf.tableView.header endRefreshing];
-                                 [weakSelf.tableView.footer endRefreshing];
+                                 if ([weakSelf.tableView.header isRefreshing]) {
+                                     [weakSelf.tableView.header endRefreshing];
+                                 }
+                                 if ([weakSelf.tableView.footer isRefreshing]) {
+                                     [weakSelf.tableView.footer endRefreshing];
+                                 }
+                                 weakSelf.currentPage--;
                              }];
+}
+
+- (void)layoutPageSubviews {
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(0, 0, 0, 16));
+    }];
 }
 
 #pragma mark - Getters and Setters
 
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectOffset(self.view.frame, 0, 0)
-                                                              style:UITableViewStylePlain];
-//        _tableView = [[UITableView alloc] init];
+        _tableView = [[UITableView alloc] init];
         UINib *nib = [UINib nibWithNibName:NSStringFromClass([DFVideoTableViewCell class]) bundle:nil];
         [_tableView registerNib:nib forCellReuseIdentifier:CellIdentifier];
         _tableView.estimatedRowHeight = 0;
         _tableView.rowHeight = 76;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tableView.separatorInset = UIEdgeInsetsMake(0, 8, 0, 8);
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.tableFooterView = [[UIView alloc] init];
@@ -155,7 +166,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
         // 下拉刷新
         // 添加动画图片的下拉刷新
         // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
-        [_tableView addGifHeaderWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+        [_tableView addGifHeaderWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
         
         // 设置普通状态的动画图片
         NSMutableArray *idleImages = [NSMutableArray array];
@@ -194,4 +205,10 @@ static NSString *CellIdentifier = @"CellIdentifier";
     return _tableView;
 }
 
+- (NSMutableArray *)data {
+    if (_data == nil) {
+        _data = [NSMutableArray array];
+    }
+    return _data;
+}
 @end

@@ -12,6 +12,7 @@
 		780308411B06E01100ACC317 /* DFVideoPageRecommandedVideoParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 780308401B06E01100ACC317 /* DFVideoPageRecommandedVideoParser.m */; };
 		780308441B06E06C00ACC317 /* DFVideoPageHotestVideoParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 780308431B06E06C00ACC317 /* DFVideoPageHotestVideoParser.m */; };
 		7806545E1AFAE1E80073CF20 /* libPods-Ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7806545D1AFAE1E80073CF20 /* libPods-Ads.a */; };
+		78069C0F1B0878E1000EF4F4 /* DFMainControllerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78069C0E1B0878E1000EF4F4 /* DFMainControllerTableViewCell.m */; };
 		780AADBB1AFF1F4300945638 /* DFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 780AADBA1AFF1F4300945638 /* DFParser.m */; };
 		780DAC601ADD6FCC00EA3C6A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 780DAC5F1ADD6FCC00EA3C6A /* libxml2.dylib */; };
 		780DAC621ADD704000EA3C6A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 780DAC611ADD704000EA3C6A /* MediaPlayer.framework */; };
@@ -50,7 +51,6 @@
 		78E692291AE408FF00CC6226 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 78E692241AE408FF00CC6226 /* LICENSE */; };
 		78FCF8A51AFE0512004CD6F4 /* DFBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FCF8A41AFE0512004CD6F4 /* DFBaseViewController.m */; };
 		78FE0AC21ADF371200FF3329 /* DFVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FE0AC11ADF371200FF3329 /* DFVideoViewController.m */; };
-		78FEE1401AE35D3100972C9C /* DFVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78FEE13F1AE35D3100972C9C /* DFVideoViewController.xib */; };
 		C809D658C6909CFD56C8A266 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A00D5938B400F57B1D7D505 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +75,9 @@
 		780308421B06E06C00ACC317 /* DFVideoPageHotestVideoParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFVideoPageHotestVideoParser.h; sourceTree = "<group>"; };
 		780308431B06E06C00ACC317 /* DFVideoPageHotestVideoParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFVideoPageHotestVideoParser.m; sourceTree = "<group>"; };
 		7806545D1AFAE1E80073CF20 /* libPods-Ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Ads.a"; path = "Pods/../build/Debug-iphoneos/libPods-Ads.a"; sourceTree = "<group>"; };
+		78069C091B08600B000EF4F4 /* Ads-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ads-Prefix.pch"; sourceTree = "<group>"; };
+		78069C0D1B0878E1000EF4F4 /* DFMainControllerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFMainControllerTableViewCell.h; sourceTree = "<group>"; };
+		78069C0E1B0878E1000EF4F4 /* DFMainControllerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFMainControllerTableViewCell.m; sourceTree = "<group>"; };
 		780AADB91AFF1F4300945638 /* DFParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFParser.h; sourceTree = "<group>"; };
 		780AADBA1AFF1F4300945638 /* DFParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFParser.m; sourceTree = "<group>"; };
 		780DAC5F1ADD6FCC00EA3C6A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -142,7 +145,6 @@
 		78FE0AC01ADF371200FF3329 /* DFVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DFVideoViewController.h; path = ViewControllers/DFVideoViewController.h; sourceTree = "<group>"; };
 		78FE0AC11ADF371200FF3329 /* DFVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DFVideoViewController.m; path = ViewControllers/DFVideoViewController.m; sourceTree = "<group>"; };
 		78FEE1371AE352FD00972C9C /* DFConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFConstants.h; sourceTree = "<group>"; };
-		78FEE13F1AE35D3100972C9C /* DFVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DFVideoViewController.xib; path = ViewControllers/DFVideoViewController.xib; sourceTree = "<group>"; };
 		EDA4BAF7923019D0B2584968 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		FFC2304ED53EED4804960B4A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -269,6 +271,7 @@
 			children = (
 				78CE006C1ADD61EE00B249A0 /* Info.plist */,
 				78CE006D1ADD61EE00B249A0 /* main.m */,
+				78069C091B08600B000EF4F4 /* Ads-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -296,7 +299,6 @@
 				784B6FF01B07A9A2006A733E /* Base */,
 				78FE0AC01ADF371200FF3329 /* DFVideoViewController.h */,
 				78FE0AC11ADF371200FF3329 /* DFVideoViewController.m */,
-				78FEE13F1AE35D3100972C9C /* DFVideoViewController.xib */,
 				78D992941ADD6ECB008D9F10 /* DFMainViewController.h */,
 				78D992951ADD6ECB008D9F10 /* DFMainViewController.m */,
 			);
@@ -363,6 +365,8 @@
 				782770941AE3E45D00E54DF8 /* DFVideoTableViewCell.h */,
 				782770951AE3E45D00E54DF8 /* DFVideoTableViewCell.m */,
 				782770961AE3E45D00E54DF8 /* DFVideoTableViewCell.xib */,
+				78069C0D1B0878E1000EF4F4 /* DFMainControllerTableViewCell.h */,
+				78069C0E1B0878E1000EF4F4 /* DFMainControllerTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -511,7 +515,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				782770981AE3E45D00E54DF8 /* DFVideoTableViewCell.xib in Resources */,
-				78FEE1401AE35D3100972C9C /* DFVideoViewController.xib in Resources */,
 				78E692291AE408FF00CC6226 /* LICENSE in Resources */,
 				78CE00791ADD61EE00B249A0 /* Images.xcassets in Resources */,
 			);
@@ -607,6 +610,7 @@
 				780308441B06E06C00ACC317 /* DFVideoPageHotestVideoParser.m in Sources */,
 				78D992891ADD6EBC008D9F10 /* DFVideo.m in Sources */,
 				780308411B06E01100ACC317 /* DFVideoPageRecommandedVideoParser.m in Sources */,
+				78069C0F1B0878E1000EF4F4 /* DFMainControllerTableViewCell.m in Sources */,
 				78D9929E1ADD6ECB008D9F10 /* DFHtmlParser.m in Sources */,
 				78D992A21ADD6ECB008D9F10 /* DFMainViewController.m in Sources */,
 				78B607A31AFFA9CF00EDBD07 /* DFCategoryPageParser.m in Sources */,
@@ -731,7 +735,7 @@
 					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
 				);
 				INFOPLIST_FILE = Ads/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -760,7 +764,7 @@
 					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
 				);
 				INFOPLIST_FILE = Ads/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

@@ -75,7 +75,7 @@
 
 - (void)addLocalNotification {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:5.0];
+    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60 * 60];
     notification.repeatInterval = kCFCalendarUnitDay;
     
     notification.alertLaunchImage = @"image_animal_1";
