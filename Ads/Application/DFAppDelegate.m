@@ -10,6 +10,7 @@
 #import "DFMainViewController.h"
 #import <AFNetworking/AFNetworkReachabilityManager.h>
 #import <UMengAnalytics/MobClick.h>
+#import "DFVideoPlayerController.h"
 
 @interface DFAppDelegate ()
 
@@ -38,8 +39,9 @@
 //    
 //    [[UITabBarItem appearance] setTitleTextAttributes:nil forState:UIControlStateNormal];
     
-    DFMainViewController *mainViewController = [[DFMainViewController alloc] initWithNibName:nil bundle:nil];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+//    DFMainViewController *mainViewController = [[DFMainViewController alloc] initWithNibName:nil bundle:nil];
+    DFVideoPlayerController *rootVC = [DFVideoPlayerController new];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:rootVC];
     [self.window makeKeyAndVisible];
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
