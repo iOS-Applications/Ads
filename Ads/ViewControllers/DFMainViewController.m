@@ -155,7 +155,6 @@ static NSString *CellIdentifier = @"CellIdentifier";
         _tableView = [[UITableView alloc] init];
         UINib *nib = [UINib nibWithNibName:NSStringFromClass([DFVideoTableViewCell class]) bundle:nil];
         [_tableView registerNib:nib forCellReuseIdentifier:CellIdentifier];
-        _tableView.estimatedRowHeight = 0;
         _tableView.rowHeight = 76;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         _tableView.separatorInset = UIEdgeInsetsMake(0, 8, 0, 8);

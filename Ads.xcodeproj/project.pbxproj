@@ -13,6 +13,8 @@
 		780308441B06E06C00ACC317 /* DFVideoPageHotestVideoParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 780308431B06E06C00ACC317 /* DFVideoPageHotestVideoParser.m */; };
 		7806545E1AFAE1E80073CF20 /* libPods-Ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7806545D1AFAE1E80073CF20 /* libPods-Ads.a */; };
 		78069C0F1B0878E1000EF4F4 /* DFMainControllerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78069C0E1B0878E1000EF4F4 /* DFMainControllerTableViewCell.m */; };
+		78071DA41B0A291C00405DA9 /* DFHtmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78071DA31B0A291C00405DA9 /* DFHtmlParser.m */; };
+		78071DA71B0A2A2C00405DA9 /* DFBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78071DA61B0A2A2C00405DA9 /* DFBaseTableViewCell.m */; };
 		780AADBB1AFF1F4300945638 /* DFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 780AADBA1AFF1F4300945638 /* DFParser.m */; };
 		780DAC601ADD6FCC00EA3C6A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 780DAC5F1ADD6FCC00EA3C6A /* libxml2.dylib */; };
 		780DAC621ADD704000EA3C6A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 780DAC611ADD704000EA3C6A /* MediaPlayer.framework */; };
@@ -34,7 +36,6 @@
 		782770921AE39D1C00E54DF8 /* DFVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 782770901AE39D1C00E54DF8 /* DFVideoCell.m */; };
 		782770971AE3E45D00E54DF8 /* DFVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 782770951AE3E45D00E54DF8 /* DFVideoTableViewCell.m */; };
 		782770981AE3E45D00E54DF8 /* DFVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782770961AE3E45D00E54DF8 /* DFVideoTableViewCell.xib */; };
-		787C9B7A1AEF10230037B904 /* DFVideoDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 787C9B791AEF10230037B904 /* DFVideoDao.m */; };
 		78B6079C1AFF87FC00EDBD07 /* DFApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B607991AFF87FC00EDBD07 /* DFApi.m */; };
 		78B6079D1AFF87FC00EDBD07 /* DFHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B6079B1AFF87FC00EDBD07 /* DFHttpClient.m */; };
 		78B607A01AFF8A6000EDBD07 /* DFLatestPageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B6079F1AFF8A6000EDBD07 /* DFLatestPageParser.m */; };
@@ -43,7 +44,6 @@
 		78CE00791ADD61EE00B249A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78CE00781ADD61EE00B249A0 /* Images.xcassets */; };
 		78CE00881ADD61EE00B249A0 /* AdsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CE00871ADD61EE00B249A0 /* AdsTests.m */; };
 		78D992891ADD6EBC008D9F10 /* DFVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D992881ADD6EBC008D9F10 /* DFVideo.m */; };
-		78D9929E1ADD6ECB008D9F10 /* DFHtmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D9928C1ADD6ECB008D9F10 /* DFHtmlParser.m */; };
 		78D992A21ADD6ECB008D9F10 /* DFMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D992951ADD6ECB008D9F10 /* DFMainViewController.m */; };
 		78E692261AE408FF00CC6226 /* libffmpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78E692211AE408FF00CC6226 /* libffmpeg.a */; };
 		78E692271AE408FF00CC6226 /* libopenssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78E692221AE408FF00CC6226 /* libopenssl.a */; };
@@ -75,9 +75,12 @@
 		780308421B06E06C00ACC317 /* DFVideoPageHotestVideoParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFVideoPageHotestVideoParser.h; sourceTree = "<group>"; };
 		780308431B06E06C00ACC317 /* DFVideoPageHotestVideoParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFVideoPageHotestVideoParser.m; sourceTree = "<group>"; };
 		7806545D1AFAE1E80073CF20 /* libPods-Ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Ads.a"; path = "Pods/../build/Debug-iphoneos/libPods-Ads.a"; sourceTree = "<group>"; };
-		78069C091B08600B000EF4F4 /* Ads-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ads-Prefix.pch"; sourceTree = "<group>"; };
 		78069C0D1B0878E1000EF4F4 /* DFMainControllerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFMainControllerTableViewCell.h; sourceTree = "<group>"; };
 		78069C0E1B0878E1000EF4F4 /* DFMainControllerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFMainControllerTableViewCell.m; sourceTree = "<group>"; };
+		78071DA21B0A291C00405DA9 /* DFHtmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFHtmlParser.h; sourceTree = "<group>"; };
+		78071DA31B0A291C00405DA9 /* DFHtmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFHtmlParser.m; sourceTree = "<group>"; };
+		78071DA51B0A2A2C00405DA9 /* DFBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFBaseTableViewCell.h; sourceTree = "<group>"; };
+		78071DA61B0A2A2C00405DA9 /* DFBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFBaseTableViewCell.m; sourceTree = "<group>"; };
 		780AADB91AFF1F4300945638 /* DFParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFParser.h; sourceTree = "<group>"; };
 		780AADBA1AFF1F4300945638 /* DFParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFParser.m; sourceTree = "<group>"; };
 		780DAC5F1ADD6FCC00EA3C6A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -102,8 +105,6 @@
 		782770941AE3E45D00E54DF8 /* DFVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFVideoTableViewCell.h; sourceTree = "<group>"; };
 		782770951AE3E45D00E54DF8 /* DFVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFVideoTableViewCell.m; sourceTree = "<group>"; };
 		782770961AE3E45D00E54DF8 /* DFVideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DFVideoTableViewCell.xib; sourceTree = "<group>"; };
-		787C9B781AEF10230037B904 /* DFVideoDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DFVideoDao.h; path = Dao/DFVideoDao.h; sourceTree = "<group>"; };
-		787C9B791AEF10230037B904 /* DFVideoDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DFVideoDao.m; path = Dao/DFVideoDao.m; sourceTree = "<group>"; };
 		78B607981AFF87FC00EDBD07 /* DFApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DFApi.h; path = Api/DFApi.h; sourceTree = "<group>"; };
 		78B607991AFF87FC00EDBD07 /* DFApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DFApi.m; path = Api/DFApi.m; sourceTree = "<group>"; };
 		78B6079A1AFF87FC00EDBD07 /* DFHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DFHttpClient.h; path = Api/DFHttpClient.h; sourceTree = "<group>"; };
@@ -123,8 +124,6 @@
 		78CE00871ADD61EE00B249A0 /* AdsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdsTests.m; sourceTree = "<group>"; };
 		78D992871ADD6EBC008D9F10 /* DFVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DFVideo.h; path = Dao/Domain/DFVideo.h; sourceTree = "<group>"; };
 		78D992881ADD6EBC008D9F10 /* DFVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DFVideo.m; path = Dao/Domain/DFVideo.m; sourceTree = "<group>"; };
-		78D9928B1ADD6ECB008D9F10 /* DFHtmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFHtmlParser.h; sourceTree = "<group>"; };
-		78D9928C1ADD6ECB008D9F10 /* DFHtmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFHtmlParser.m; sourceTree = "<group>"; };
 		78D992941ADD6ECB008D9F10 /* DFMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DFMainViewController.h; path = ViewControllers/DFMainViewController.h; sourceTree = "<group>"; };
 		78D992951ADD6ECB008D9F10 /* DFMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DFMainViewController.m; path = ViewControllers/DFMainViewController.m; sourceTree = "<group>"; };
 		78E692191AE408FF00CC6226 /* VDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDefines.h; sourceTree = "<group>"; };
@@ -201,10 +200,10 @@
 		780AADB81AFF1EFE00945638 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				78D9928B1ADD6ECB008D9F10 /* DFHtmlParser.h */,
-				78D9928C1ADD6ECB008D9F10 /* DFHtmlParser.m */,
 				780AADB91AFF1F4300945638 /* DFParser.h */,
 				780AADBA1AFF1F4300945638 /* DFParser.m */,
+				78071DA21B0A291C00405DA9 /* DFHtmlParser.h */,
+				78071DA31B0A291C00405DA9 /* DFHtmlParser.m */,
 				78B6079E1AFF8A6000EDBD07 /* DFLatestPageParser.h */,
 				78B6079F1AFF8A6000EDBD07 /* DFLatestPageParser.m */,
 				78B607A11AFFA9CF00EDBD07 /* DFCategoryPageParser.h */,
@@ -258,7 +257,6 @@
 				780AADB71AFF1E3E00945638 /* Model */,
 				78FE0AC41ADF3C4800FF3329 /* Views */,
 				78D992581ADD6E4B008D9F10 /* ViewControllers */,
-				78FE0AC31ADF3C3900FF3329 /* Dao */,
 				78D992591ADD6E57008D9F10 /* Utilities */,
 				78CE00781ADD61EE00B249A0 /* Images.xcassets */,
 				78CE006B1ADD61EE00B249A0 /* Supporting Files */,
@@ -271,7 +269,6 @@
 			children = (
 				78CE006C1ADD61EE00B249A0 /* Info.plist */,
 				78CE006D1ADD61EE00B249A0 /* main.m */,
-				78069C091B08600B000EF4F4 /* Ads-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -348,15 +345,6 @@
 			path = Vitamio;
 			sourceTree = "<group>";
 		};
-		78FE0AC31ADF3C3900FF3329 /* Dao */ = {
-			isa = PBXGroup;
-			children = (
-				787C9B781AEF10230037B904 /* DFVideoDao.h */,
-				787C9B791AEF10230037B904 /* DFVideoDao.m */,
-			);
-			name = Dao;
-			sourceTree = "<group>";
-		};
 		78FE0AC41ADF3C4800FF3329 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,6 +355,8 @@
 				782770961AE3E45D00E54DF8 /* DFVideoTableViewCell.xib */,
 				78069C0D1B0878E1000EF4F4 /* DFMainControllerTableViewCell.h */,
 				78069C0E1B0878E1000EF4F4 /* DFMainControllerTableViewCell.m */,
+				78071DA51B0A2A2C00405DA9 /* DFBaseTableViewCell.h */,
+				78071DA61B0A2A2C00405DA9 /* DFBaseTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -598,7 +588,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				782770921AE39D1C00E54DF8 /* DFVideoCell.m in Sources */,
-				787C9B7A1AEF10230037B904 /* DFVideoDao.m in Sources */,
 				78FE0AC21ADF371200FF3329 /* DFVideoViewController.m in Sources */,
 				7813F6971AEFDC6F00168D84 /* DFAppDelegate.m in Sources */,
 				78B6079D1AFF87FC00EDBD07 /* DFHttpClient.m in Sources */,
@@ -610,9 +599,10 @@
 				780308441B06E06C00ACC317 /* DFVideoPageHotestVideoParser.m in Sources */,
 				78D992891ADD6EBC008D9F10 /* DFVideo.m in Sources */,
 				780308411B06E01100ACC317 /* DFVideoPageRecommandedVideoParser.m in Sources */,
+				78071DA41B0A291C00405DA9 /* DFHtmlParser.m in Sources */,
 				78069C0F1B0878E1000EF4F4 /* DFMainControllerTableViewCell.m in Sources */,
-				78D9929E1ADD6ECB008D9F10 /* DFHtmlParser.m in Sources */,
 				78D992A21ADD6ECB008D9F10 /* DFMainViewController.m in Sources */,
+				78071DA71B0A2A2C00405DA9 /* DFBaseTableViewCell.m in Sources */,
 				78B607A31AFFA9CF00EDBD07 /* DFCategoryPageParser.m in Sources */,
 				7803083E1B06DD4700ACC317 /* DFSearchResultPageParser.m in Sources */,
 				78CE006E1ADD61EE00B249A0 /* main.m in Sources */,
