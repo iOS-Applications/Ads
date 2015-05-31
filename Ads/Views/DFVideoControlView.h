@@ -44,16 +44,9 @@
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
-- (void)animateHide;
-- (void)animateShow;
-- (void)autoFadeOutControlBar;
-- (void)cancelAutoFadeOutControlBar;
-
-
-- (void)setPlaying:(BOOL)playing;
-
 - (void)setBuffering:(BOOL)buffering;
 - (void)updateBufferedProgress:(int)progress;
 
 - (void)updateProgress:(long)currentTime totalTime:(long)totalTime;
+
 @end

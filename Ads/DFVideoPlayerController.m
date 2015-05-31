@@ -115,8 +115,8 @@
     [self.videoControlView setStarted:NO];
 }
 
-
 #pragma mark - VMediaPlayerDelegate optional
+
 - (void)mediaPlayer:(VMediaPlayer *)player setupManagerPreference:(id)arg {
 	player.decodingSchemeHint = VMDecodingSchemeSoftware;
 	player.autoSwitchDecodingScheme = NO;

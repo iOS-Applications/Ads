@@ -7,6 +7,7 @@
 //
 
 #import "DFVideoControlView.h"
+#import "Utilities.h"
 
 static const CGFloat kVideoControlBarHeight = 40.0;
 static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
@@ -14,6 +15,9 @@ static const CGFloat kVideoControlTimeLabelFontSize = 10.0;
 static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 
 @interface DFVideoControlView ()
+{
+    long duration;
+}
 
 @property (nonatomic, strong) UIView *topBar;
 @property (nonatomic, strong) UIView *bottomBar;
@@ -56,21 +60,17 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     return self;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     [super layoutSubviews];
-    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), CGRectGetMaxX(self.bounds), kVideoControlBarHeight);
-    self.closeButton.frame = CGRectMake(CGRectGetMaxX(self.bounds) - CGRectGetMaxX(self.closeButton.bounds), CGRectGetMinX(self.bounds), CGRectGetMaxX(self.closeButton.bounds), CGRectGetMaxY(self.closeButton.bounds));
-    self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMaxY(self.bounds) - kVideoControlBarHeight, CGRectGetMaxX(self.bounds), kVideoControlBarHeight);
-    self.playButton.frame = CGRectMake(CGRectGetMinX(self.bottomBar.bounds), CGRectGetMaxY(self.bottomBar.bounds)/2 - CGRectGetMaxY(self.playButton.bounds)/2, CGRectGetMaxX(self.playButton.bounds), CGRectGetMaxY(self.playButton.bounds));
+    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), CGRectGetWidth(self.bounds), kVideoControlBarHeight);
+    self.closeButton.frame = CGRectMake(CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.closeButton.bounds), CGRectGetMinX(self.topBar.bounds), CGRectGetWidth(self.closeButton.bounds), CGRectGetHeight(self.closeButton.bounds));
+    self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - kVideoControlBarHeight, CGRectGetWidth(self.bounds), kVideoControlBarHeight);
+    self.playButton.frame = CGRectMake(CGRectGetMinX(self.bottomBar.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds), CGRectGetHeight(self.playButton.bounds));
     self.pauseButton.frame = self.playButton.frame;
-    self.fullScreenButton.frame = CGRectMake(CGRectGetMaxX(self.bottomBar.bounds) - CGRectGetMaxX(self.fullScreenButton.bounds), CGRectGetMaxY(self.bottomBar.bounds)/2 - CGRectGetMaxY(self.fullScreenButton.bounds)/2, CGRectGetMaxX(self.fullScreenButton.bounds), CGRectGetMaxY(self.fullScreenButton.bounds));
+    self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.fullScreenButton.bounds)/2, CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
     self.shrinkScreenButton.frame = self.fullScreenButton.frame;
-    self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.playButton.bounds), CGRectGetMaxY(self.bottomBar.bounds)/2 - CGRectGetMaxY(self.progressSlider.bounds)/2, CGRectGetMaxX(self.bounds) - CGRectGetMaxX(self.playButton.bounds) - CGRectGetMaxX(self.fullScreenButton.bounds), CGRectGetMaxY(self.progressSlider.bounds));
-    self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame),
-                                      CGRectGetMaxY(self.progressSlider.frame) + 2,
-                                      CGRectGetMidX(self.progressSlider.frame),
-                                      CGRectGetMaxY(self.timeLabel.bounds));
+    self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.playButton.frame), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.progressSlider.bounds)/2, CGRectGetMinX(self.fullScreenButton.frame) - CGRectGetMaxX(self.playButton.frame), CGRectGetHeight(self.progressSlider.bounds));
+    self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame), CGRectGetHeight(self.bottomBar.bounds) - CGRectGetHeight(self.timeLabel.bounds) - 2.0, CGRectGetWidth(self.progressSlider.bounds)/2, CGRectGetHeight(self.timeLabel.bounds));
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
@@ -78,6 +78,15 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 {
     [super didMoveToSuperview];
     self.isBarShowing = YES;
+}
+
+- (void)setStarted:(BOOL)started {
+    if (started) {
+        [self setPlayButtonHidden:YES pauseButtonHidden:NO];
+        [self autoFadeOutControlBar];
+    } else {
+        [self setPlayButtonHidden:NO pauseButtonHidden:YES];
+    }
 }
 
 - (void)setBuffering:(BOOL)buffering {
@@ -96,6 +105,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 
 - (void)updateProgress:(long)currentTime totalTime:(long)totalTime {
     // slider 默认0-1
+    duration = totalTime;
 	[self.progressSlider setValue:(float)currentTime / totalTime];
     [self setTimeLabelValues:currentTime totalTime:totalTime];
 }
@@ -105,21 +115,29 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 - (void)playButtonClick:(UIButton *)sender {
     [self.delegate videoControlView:self didPlayButtonClicked:sender];
     [self setStarted:YES];
+    
+    [self autoFadeOutControlBar];
 }
 
 - (void)pauseButtonClick:(UIButton *)sender {
     [self.delegate videoControlView:self didPauseButtonClicked:sender];
     [self setStarted:NO];
+    
+    [self cancelAutoFadeOutControlBar];
 }
 
 - (void)fullScreenButtonClick:(UIButton *)sender {
     [self.delegate videoControlView:self didFullScreenButtonClicked:sender];
-    [self setFullScreen:YES];
+    [self setFullScreenButtonHidden:YES shrinkScreenButtonHidden:NO];
+    
+    [self autoFadeOutControlBar];
 }
 
 - (void)shrinkScreenButtonClick:(UIButton *)sender {
     [self.delegate videoControlView:self didShrinkScreenButtonClicked:sender];
-    [self setFullScreen:NO];
+    [self setFullScreenButtonHidden:NO shrinkScreenButtonHidden:YES];
+    
+    [self autoFadeOutControlBar];
 }
 
 - (void)closeButtonClick:(UIButton *)sender {
@@ -127,15 +145,20 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 }
 
 - (void)progressSliderValueDidChanged:(UISlider *)sender {
-    
+    long currentTime = sender.value * duration;
+    [self setTimeLabelValues:currentTime totalTime:duration];
 }
 
 - (void)progressSliderActionDown:(UISlider *)sender {
     [self.delegate videoControlView:self didProgressSliderDragBegin:sender];
+    
+    [self cancelAutoFadeOutControlBar];
 }
 
 - (void)progressSliderActionUp:(UISlider *)sender {
     [self.delegate videoControlView:self didProgressSliderDragEnd:sender];
+    
+    [self autoFadeOutControlBar];
 }
 
 - (void)onTap:(UITapGestureRecognizer *)gesture {
@@ -176,7 +199,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 }
 
 - (void)autoFadeOutControlBar {
-    if (!self.isBarShowing) {
+    if (!self.isBarShowing || !self.playButton.hidden) {
         return;
     }
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(animateHide) object:nil];
@@ -196,15 +219,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 }
 
 - (void)setTimeLabelValues:(long)currentTime totalTime:(long)totalTime {
-    double minutesElapsed = floor(currentTime / 60.0);
-    double secondsElapsed = fmod(currentTime, 60.0);
-    NSString *timeElapsedString = [NSString stringWithFormat:@"%02.0f:%02.0f", minutesElapsed, secondsElapsed];
-    
-    double minutesRemaining = floor(totalTime / 60.0);;
-    double secondsRemaining = floor(fmod(totalTime, 60.0));;
-    NSString *timeRmainingString = [NSString stringWithFormat:@"%02.0f:%02.0f", minutesRemaining, secondsRemaining];
-    
-    self.timeLabel.text = [NSString stringWithFormat:@"%@/%@",timeElapsedString,timeRmainingString];
+    [self.timeLabel setText:[NSString stringWithFormat:@"%@/%@", [Utilities timeToHumanString:currentTime], [Utilities timeToHumanString:totalTime]]];
 }
 
 - (void)setPlayButtonHidden:(BOOL)playButtonHidden pauseButtonHidden:(BOOL)pauseButtonHidden {
@@ -319,23 +334,5 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
         [_indicatorView stopAnimating];
     }
     return _indicatorView;
-}
-
-- (void)setStarted:(BOOL)started {
-    if (started) {
-        [self setPlayButtonHidden:YES pauseButtonHidden:NO];
-    } else {
-        [self setPlayButtonHidden:NO pauseButtonHidden:YES];
-    }
-}
-
-- (void)setFullScreen:(BOOL)fullScreen {
-    if (fullScreen) {
-        self.fullScreenButton.hidden = YES;
-        self.shrinkScreenButton.hidden = NO;
-    } else {
-        self.fullScreenButton.hidden = NO;
-        self.shrinkScreenButton.hidden = YES;
-    }
 }
 @end

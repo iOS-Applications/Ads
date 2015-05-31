@@ -52,6 +52,7 @@
 		78E692281AE408FF00CC6226 /* libVitamio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78E692231AE408FF00CC6226 /* libVitamio.a */; };
 		78E692291AE408FF00CC6226 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 78E692241AE408FF00CC6226 /* LICENSE */; };
 		78FCF8A51AFE0512004CD6F4 /* DFBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FCF8A41AFE0512004CD6F4 /* DFBaseViewController.m */; };
+		78FDE04D1B1B27B9009C6DB5 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FDE04C1B1B27B9009C6DB5 /* Utilities.m */; };
 		78FE0AC21ADF371200FF3329 /* DFVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FE0AC11ADF371200FF3329 /* DFVideoViewController.m */; };
 		C809D658C6909CFD56C8A266 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A00D5938B400F57B1D7D505 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -147,6 +148,8 @@
 		78F767FC1AE0851F00D55ADB /* libPods-Ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Ads.a"; path = "Pods/../build/Debug-iphoneos/libPods-Ads.a"; sourceTree = "<group>"; };
 		78FCF8A31AFE0512004CD6F4 /* DFBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DFBaseViewController.h; path = ViewControllers/DFBaseViewController.h; sourceTree = "<group>"; };
 		78FCF8A41AFE0512004CD6F4 /* DFBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DFBaseViewController.m; path = ViewControllers/DFBaseViewController.m; sourceTree = "<group>"; };
+		78FDE04B1B1B27B9009C6DB5 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		78FDE04C1B1B27B9009C6DB5 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		78FE0AC01ADF371200FF3329 /* DFVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DFVideoViewController.h; path = ViewControllers/DFVideoViewController.h; sourceTree = "<group>"; };
 		78FE0AC11ADF371200FF3329 /* DFVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DFVideoViewController.m; path = ViewControllers/DFVideoViewController.m; sourceTree = "<group>"; };
 		78FEE1371AE352FD00972C9C /* DFConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFConstants.h; sourceTree = "<group>"; };
@@ -314,6 +317,8 @@
 			isa = PBXGroup;
 			children = (
 				78FEE1371AE352FD00972C9C /* DFConstants.h */,
+				78FDE04B1B1B27B9009C6DB5 /* Utilities.h */,
+				78FDE04C1B1B27B9009C6DB5 /* Utilities.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -603,6 +608,7 @@
 				780CC3391B18C3DC00C13CEB /* DFVideoPlayerController.m in Sources */,
 				7813F6971AEFDC6F00168D84 /* DFAppDelegate.m in Sources */,
 				78B6079D1AFF87FC00EDBD07 /* DFHttpClient.m in Sources */,
+				78FDE04D1B1B27B9009C6DB5 /* Utilities.m in Sources */,
 				78FCF8A51AFE0512004CD6F4 /* DFBaseViewController.m in Sources */,
 				780AADBB1AFF1F4300945638 /* DFParser.m in Sources */,
 				782770971AE3E45D00E54DF8 /* DFVideoTableViewCell.m in Sources */,
