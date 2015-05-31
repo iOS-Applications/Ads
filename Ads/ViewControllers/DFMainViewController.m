@@ -21,6 +21,8 @@
 #import "DFVideo.h"
 #import "DFMainControllerTableViewCell.h"
 
+#import "DFVideoPlayer.h"
+
 static NSString *CellIdentifier = @"CellIdentifier";
 
 @interface DFMainViewController ()<UITableViewDataSource, UITableViewDelegate>

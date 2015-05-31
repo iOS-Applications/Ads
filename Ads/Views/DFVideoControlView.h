@@ -18,8 +18,8 @@
 - (void)videoControlView:(DFVideoControlView *)controlView didCloseButtonClicked:(UIButton *)sender;
 - (void)videoControlView:(DFVideoControlView *)controlView didFullScreenButtonClicked:(UIButton *)sender;
 - (void)videoControlView:(DFVideoControlView *)controlView didShrinkScreenButtonClicked:(UIButton *)sender;
-- (void)videoControlView:(DFVideoControlView *)controlView didProgressSliderDragBegin:(UISlider *)sener;
-- (void)videoControlView:(DFVideoControlView *)controlView didProgressSliderDragEnd:(UISlider *)sener;
+- (void)videoControlView:(DFVideoControlView *)controlView didProgressSliderDragBegan:(UISlider *)slider;
+- (void)videoControlView:(DFVideoControlView *)controlView didProgressSliderDragEnded:(UISlider *)slider;
 
 // 可以定义一个getProgress协议。就可以在这里定义一个Timer了。
 

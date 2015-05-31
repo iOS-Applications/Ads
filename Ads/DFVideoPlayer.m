@@ -6,17 +6,15 @@
 //  Copyright (c) 2015年 朱东方. All rights reserved.
 //
 
-#import "DFVideoPlayerController.h"
+#import "DFVideoPlayer.h"
 #import "DFVideoControlView.h"
 #import "Vitamio.h"
 
 #define kTestVideoUrl @"http://krtv.qiniudn.com/150522nextapp"
 
-@interface DFVideoPlayerController ()<VMediaPlayerDelegate, DFVideoControlViewDelegate>
+@interface DFVideoPlayer ()<VMediaPlayerDelegate, DFVideoControlViewDelegate>
 {
     CGFloat width;
-    long duration;
-    NSTimer *timer;
 }
 
 @property (nonatomic, strong) VMediaPlayer *mediaPlayer;
@@ -26,19 +24,21 @@
 
 @property (nonatomic, strong) DFVideoControlView *videoControlView;
 
+@property (nonatomic, assign) long duration;
+@property (nonatomic, strong) NSTimer *durationTimer;
+
 @property (nonatomic, assign) BOOL progressDragging;
 
 @end
 
-@implementation DFVideoPlayerController
+@implementation DFVideoPlayer
 
 #pragma mark - Life Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    width = self.view.bounds.size.width;
-   
+    width = [UIScreen mainScreen].bounds.size.width;
     [self.backView addSubview:self.carrierView];
     [self.backView addSubview:self.videoControlView];
     [self.view addSubview:self.backView];
@@ -56,6 +56,9 @@
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 #pragma mark - DFVideoControlView
 - (void)videoControlView:(DFVideoControlView *)controlView didPlayButtonClicked:(UIButton *)playerButton {
     if (![self.mediaPlayer isPlaying]) {
@@ -82,12 +85,12 @@
     NSLog(@"shrinkScreen");
 }
 
-- (void)videoControlView:(DFVideoControlView *)controlView didProgressSliderDragBegin:(UISlider *)sener {
+- (void)videoControlView:(DFVideoControlView *)controlView didProgressSliderDragBegan:(UISlider *)sener {
     self.progressDragging = YES;
 }
 
-- (void)videoControlView:(DFVideoControlView *)controlView didProgressSliderDragEnd:(UISlider *)sener {
-    [self.mediaPlayer seekTo:sener.value * duration];
+- (void)videoControlView:(DFVideoControlView *)controlView didProgressSliderDragEnded:(UISlider *)sener {
+    [self.mediaPlayer seekTo:sener.value * self.duration];
 }
 
 #pragma mark - VMediaPlayerDelegate required
@@ -99,14 +102,9 @@
     
     [self.videoControlView setStarted:YES];
     
-    duration = [player getDuration];
-    timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                             target:self
-                                           selector:@selector(updateProgress)
-                                           userInfo:nil
-                                            repeats:YES];
+    self.duration = [player getDuration];
+    [self startDurationTimer];
 }
-
 - (void)mediaPlayer:(VMediaPlayer *)player playbackComplete:(id)arg {
     [self.videoControlView setStarted:NO];
 }
@@ -169,7 +167,7 @@
 
 - (void)updateProgress {
 	if (!self.progressDragging) {
-        [self.videoControlView updateProgress:[self.mediaPlayer getCurrentPosition] totalTime:duration];
+        [self.videoControlView updateProgress:[self.mediaPlayer getCurrentPosition] totalTime:self.duration];
 	}
 }
 
@@ -186,6 +184,7 @@
 
 - (void)stopPlayer {
     [self.mediaPlayer reset];
+    [self stopPlayer];
 }
 
 - (NSString *)cacheRootDirectory {
@@ -199,6 +198,19 @@
 	return cache;
 }
 
+- (void)startDurationTimer {
+    self.durationTimer = [NSTimer timerWithTimeInterval:1.0
+                                                 target:self
+                                               selector:@selector(updateProgress)
+                                               userInfo:nil
+                                                repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
+}
+
+- (void)stopDurationTimer {
+    [self.durationTimer invalidate];
+}
+
 #pragma mark - Getters and Setters
 
 - (DFVideoControlView *)videoControlView {
@@ -210,7 +222,6 @@
     }
     return _videoControlView;
 }
-
 
 - (UIView *)backView {
     if (!_backView) {

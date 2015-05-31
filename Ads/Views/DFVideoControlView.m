@@ -150,13 +150,13 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 }
 
 - (void)progressSliderActionDown:(UISlider *)sender {
-    [self.delegate videoControlView:self didProgressSliderDragBegin:sender];
+    [self.delegate videoControlView:self didProgressSliderDragBegan:sender];
     
     [self cancelAutoFadeOutControlBar];
 }
 
 - (void)progressSliderActionUp:(UISlider *)sender {
-    [self.delegate videoControlView:self didProgressSliderDragEnd:sender];
+    [self.delegate videoControlView:self didProgressSliderDragEnded:sender];
     
     [self autoFadeOutControlBar];
 }

@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DFVideoPlayerController : UIViewController
+@interface DFVideoPlayer : UIViewController
 
+- (void)showInWindow;
+- (void)showInViewWithParentView:(UIView *)parentView;
 @end
 
