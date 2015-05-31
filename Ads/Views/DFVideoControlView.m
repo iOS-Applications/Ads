@@ -6,23 +6,14 @@
 //  Copyright (c) 2015 36kr. All rights reserved.
 //
 
-#import "KRVideoPlayerControlView.h"
+#import "DFVideoControlView.h"
 
 static const CGFloat kVideoControlBarHeight = 40.0;
 static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
 static const CGFloat kVideoControlTimeLabelFontSize = 10.0;
 static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 
-@protocol KRVideoPlayerControlViewDelegate <NSObject>
-
-@optional
-- (void)videoPlayerControlView:(KRVideoPlayerControlView *)controlView
-           startButtonDidClick:(UIButton *)startButton;
-    
-
-@end
-
-@interface KRVideoPlayerControlView ()
+@interface DFVideoControlView ()
 
 @property (nonatomic, strong) UIView *topBar;
 @property (nonatomic, strong) UIView *bottomBar;
@@ -38,7 +29,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 
 @end
 
-@implementation KRVideoPlayerControlView
+@implementation DFVideoControlView
+
+#pragma mark -
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -74,7 +67,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     self.fullScreenButton.frame = CGRectMake(CGRectGetMaxX(self.bottomBar.bounds) - CGRectGetMaxX(self.fullScreenButton.bounds), CGRectGetMaxY(self.bottomBar.bounds)/2 - CGRectGetMaxY(self.fullScreenButton.bounds)/2, CGRectGetMaxX(self.fullScreenButton.bounds), CGRectGetMaxY(self.fullScreenButton.bounds));
     self.shrinkScreenButton.frame = self.fullScreenButton.frame;
     self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.playButton.bounds), CGRectGetMaxY(self.bottomBar.bounds)/2 - CGRectGetMaxY(self.progressSlider.bounds)/2, CGRectGetMaxX(self.bounds) - CGRectGetMaxX(self.playButton.bounds) - CGRectGetMaxX(self.fullScreenButton.bounds), CGRectGetMaxY(self.progressSlider.bounds));
-    self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame), CGRectGetMaxY(self.progressSlider.frame) + 2, CGRectGetMidX(self.progressSlider.frame), CGRectGetMaxY(self.timeLabel.bounds));
+    self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame),
+                                      CGRectGetMaxY(self.progressSlider.frame) + 2,
+                                      CGRectGetMidX(self.progressSlider.frame),
+                                      CGRectGetMaxY(self.timeLabel.bounds));
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
@@ -84,8 +80,77 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     self.isBarShowing = YES;
 }
 
-- (void)animateHide
-{
+- (void)setBuffering:(BOOL)buffering {
+    if (buffering) {
+        self.indicatorView.hidden = NO;
+        [self setStarted:NO];
+    } else {
+        self.indicatorView.hidden = YES;
+        [self setStarted:YES];
+    }
+}
+
+- (void)updateBufferedProgress:(int)progress {
+    
+}
+
+- (void)updateProgress:(long)currentTime totalTime:(long)totalTime {
+    // slider 默认0-1
+	[self.progressSlider setValue:(float)currentTime / totalTime];
+    [self setTimeLabelValues:currentTime totalTime:totalTime];
+}
+
+#pragma mark - Event reponse and GetureRecognizer
+
+- (void)playButtonClick:(UIButton *)sender {
+    [self.delegate videoControlView:self didPlayButtonClicked:sender];
+    [self setStarted:YES];
+}
+
+- (void)pauseButtonClick:(UIButton *)sender {
+    [self.delegate videoControlView:self didPauseButtonClicked:sender];
+    [self setStarted:NO];
+}
+
+- (void)fullScreenButtonClick:(UIButton *)sender {
+    [self.delegate videoControlView:self didFullScreenButtonClicked:sender];
+    [self setFullScreen:YES];
+}
+
+- (void)shrinkScreenButtonClick:(UIButton *)sender {
+    [self.delegate videoControlView:self didShrinkScreenButtonClicked:sender];
+    [self setFullScreen:NO];
+}
+
+- (void)closeButtonClick:(UIButton *)sender {
+    [self.delegate videoControlView:self didCloseButtonClicked:sender];
+}
+
+- (void)progressSliderValueDidChanged:(UISlider *)sender {
+    
+}
+
+- (void)progressSliderActionDown:(UISlider *)sender {
+    [self.delegate videoControlView:self didProgressSliderDragBegin:sender];
+}
+
+- (void)progressSliderActionUp:(UISlider *)sender {
+    [self.delegate videoControlView:self didProgressSliderDragEnd:sender];
+}
+
+- (void)onTap:(UITapGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateRecognized) {
+        if (self.isBarShowing) {
+            [self animateHide];
+        } else {
+            [self animateShow];
+        }
+    }
+}
+
+#pragma mark - Private methods
+
+- (void)animateHide {
     if (!self.isBarShowing) {
         return;
     }
@@ -97,8 +162,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     }];
 }
 
-- (void)animateShow
-{
+- (void)animateShow {
     if (self.isBarShowing) {
         return;
     }
@@ -111,8 +175,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     }];
 }
 
-- (void)autoFadeOutControlBar
-{
+- (void)autoFadeOutControlBar {
     if (!self.isBarShowing) {
         return;
     }
@@ -120,26 +183,43 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     [self performSelector:@selector(animateHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeinterval];
 }
 
-- (void)cancelAutoFadeOutControlBar
-{
+- (void)cancelAutoFadeOutControlBar {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(animateHide) object:nil];
 }
 
-- (void)onTap:(UITapGestureRecognizer *)gesture
-{
-    if (gesture.state == UIGestureRecognizerStateRecognized) {
-        if (self.isBarShowing) {
-            [self animateHide];
-        } else {
-            [self animateShow];
-        }
+- (NSString *)videoImageName:(NSString *)name {
+    if (name) {
+        NSString *path = [NSString stringWithFormat:@"%@",name];
+        return path;
     }
+    return nil;
 }
 
-#pragma mark - Property
+- (void)setTimeLabelValues:(long)currentTime totalTime:(long)totalTime {
+    double minutesElapsed = floor(currentTime / 60.0);
+    double secondsElapsed = fmod(currentTime, 60.0);
+    NSString *timeElapsedString = [NSString stringWithFormat:@"%02.0f:%02.0f", minutesElapsed, secondsElapsed];
+    
+    double minutesRemaining = floor(totalTime / 60.0);;
+    double secondsRemaining = floor(fmod(totalTime, 60.0));;
+    NSString *timeRmainingString = [NSString stringWithFormat:@"%02.0f:%02.0f", minutesRemaining, secondsRemaining];
+    
+    self.timeLabel.text = [NSString stringWithFormat:@"%@/%@",timeElapsedString,timeRmainingString];
+}
 
-- (UIView *)topBar
-{
+- (void)setPlayButtonHidden:(BOOL)playButtonHidden pauseButtonHidden:(BOOL)pauseButtonHidden {
+    self.playButton.hidden = playButtonHidden;
+    self.pauseButton.hidden = pauseButtonHidden;
+}
+
+- (void)setFullScreenButtonHidden:(BOOL)fullScreenButtonHidden shrinkScreenButtonHidden:(BOOL)shrinkScreenButtonHidden {
+    self.fullScreenButton.hidden = fullScreenButtonHidden;
+    self.shrinkScreenButton.hidden = shrinkScreenButtonHidden;
+}
+
+#pragma mark - Getters and Setters
+
+- (UIView *)topBar {
     if (!_topBar) {
         _topBar = [UIView new];
         _topBar.backgroundColor = [UIColor clearColor];
@@ -147,8 +227,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     return _topBar;
 }
 
-- (UIView *)bottomBar
-{
+- (UIView *)bottomBar {
     if (!_bottomBar) {
         _bottomBar = [UIView new];
         _bottomBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
@@ -156,48 +235,47 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     return _bottomBar;
 }
 
-- (UIButton *)playButton
-{
+- (UIButton *)playButton {
     if (!_playButton) {
         _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_playButton setImage:[UIImage imageNamed:[self videoImageName:@"kr-video-player-play"]] forState:UIControlStateNormal];
         _playButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
+        [_playButton addTarget:self action:@selector(playButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _playButton;
 }
 
-- (UIButton *)pauseButton
-{
+- (UIButton *)pauseButton {
     if (!_pauseButton) {
         _pauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_pauseButton setImage:[UIImage imageNamed:[self videoImageName:@"kr-video-player-pause"]] forState:UIControlStateNormal];
         _pauseButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
+        [_pauseButton addTarget:self action:@selector(pauseButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _pauseButton;
 }
 
-- (UIButton *)fullScreenButton
-{
+- (UIButton *)fullScreenButton {
     if (!_fullScreenButton) {
         _fullScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_fullScreenButton setImage:[UIImage imageNamed:[self videoImageName:@"kr-video-player-fullscreen"]] forState:UIControlStateNormal];
         _fullScreenButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
+        [_fullScreenButton addTarget:self action:@selector(fullScreenButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _fullScreenButton;
 }
 
-- (UIButton *)shrinkScreenButton
-{
+- (UIButton *)shrinkScreenButton {
     if (!_shrinkScreenButton) {
         _shrinkScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_shrinkScreenButton setImage:[UIImage imageNamed:[self videoImageName:@"kr-video-player-shrinkscreen"]] forState:UIControlStateNormal];
         _shrinkScreenButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
+        [_shrinkScreenButton addTarget:self action:@selector(shrinkScreenButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _shrinkScreenButton;
 }
 
-- (UISlider *)progressSlider
-{
+- (UISlider *)progressSlider {
     if (!_progressSlider) {
         _progressSlider = [[UISlider alloc] init];
         [_progressSlider setThumbImage:[UIImage imageNamed:[self videoImageName:@"kr-video-player-point"]] forState:UIControlStateNormal];
@@ -205,22 +283,25 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
         [_progressSlider setMaximumTrackTintColor:[UIColor lightGrayColor]];
         _progressSlider.value = 0.f;
         _progressSlider.continuous = YES;
+        [_progressSlider addTarget:self action:@selector(progressSliderValueDidChanged:) forControlEvents:UIControlEventValueChanged];
+        [_progressSlider addTarget:self action:@selector(progressSliderActionDown:) forControlEvents:UIControlEventTouchDown];
+        [_progressSlider addTarget:self action:@selector(progressSliderActionUp:) forControlEvents:UIControlEventTouchUpInside];
+        [_progressSlider addTarget:self action:@selector(progressSliderActionUp:) forControlEvents:UIControlEventTouchCancel];
     }
     return _progressSlider;
 }
 
-- (UIButton *)closeButton
-{
+- (UIButton *)closeButton {
     if (!_closeButton) {
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_closeButton setImage:[UIImage imageNamed:[self videoImageName:@"kr-video-player-close"]] forState:UIControlStateNormal];
         _closeButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
+        [_closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _closeButton;
 }
 
-- (UILabel *)timeLabel
-{
+- (UILabel *)timeLabel {
     if (!_timeLabel) {
         _timeLabel = [UILabel new];
         _timeLabel.backgroundColor = [UIColor clearColor];
@@ -232,8 +313,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     return _timeLabel;
 }
 
-- (UIActivityIndicatorView *)indicatorView
-{
+- (UIActivityIndicatorView *)indicatorView {
     if (!_indicatorView) {
         _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [_indicatorView stopAnimating];
@@ -241,15 +321,21 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     return _indicatorView;
 }
 
-#pragma mark - Private Method
-
-- (NSString *)videoImageName:(NSString *)name
-{
-    if (name) {
-        NSString *path = [NSString stringWithFormat:@"%@",name];
-        return path;
+- (void)setStarted:(BOOL)started {
+    if (started) {
+        [self setPlayButtonHidden:YES pauseButtonHidden:NO];
+    } else {
+        [self setPlayButtonHidden:NO pauseButtonHidden:YES];
     }
-    return nil;
 }
 
+- (void)setFullScreen:(BOOL)fullScreen {
+    if (fullScreen) {
+        self.fullScreenButton.hidden = YES;
+        self.shrinkScreenButton.hidden = NO;
+    } else {
+        self.fullScreenButton.hidden = NO;
+        self.shrinkScreenButton.hidden = YES;
+    }
+}
 @end

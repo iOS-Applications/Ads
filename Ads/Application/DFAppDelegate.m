@@ -41,7 +41,8 @@
     
 //    DFMainViewController *mainViewController = [[DFMainViewController alloc] initWithNibName:nil bundle:nil];
     DFVideoPlayerController *rootVC = [DFVideoPlayerController new];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:rootVC];
+//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:rootVC];
+    self.window.rootViewController = rootVC;
     [self.window makeKeyAndVisible];
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];

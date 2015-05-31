@@ -10,6 +10,5 @@
 
 @interface DFVideoPlayerController : UIViewController
 
-
 @end
 
