@@ -74,6 +74,14 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
+- (void)updateConstraints {
+    [super updateConstraints];
+}
+
++ (BOOL)requiresConstraintBasedLayout {
+    return YES;
+}
+
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];

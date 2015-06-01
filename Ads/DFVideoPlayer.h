@@ -8,9 +8,30 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DFVideoPlayer : UIViewController
+@class DFVideoPlayer;
+@class DFVideoControlView;
+
+@protocol DFVideoPlayerDelegate <NSObject>
+
+@optional
+- (void)videoPlayer:(DFVideoPlayer *)player didCompleted:(BOOL)complete;
+- (void)videoPlayer:(DFVideoPlayer *)player didError:(NSError *)error;
+
+@end
+
+@interface DFVideoPlayer :NSObject
+
+@property (nonatomic, strong) UIView *backView;
+@property (nonatomic, strong)   UIView *carrierView;
+@property (nonatomic, strong)   DFVideoControlView *videoControlView;
+
+@property (nonatomic, weak) id<DFVideoPlayerDelegate> delegate;
+
+- (instancetype)initWithURL:(NSURL *)videoUrl;
 
 - (void)showInWindow;
-- (void)showInViewWithParentView:(UIView *)parentView;
+- (void)showInParentView:(UIView *)parentView;
+- (void)updateConstraintsForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
+- (void)start;
 @end
 

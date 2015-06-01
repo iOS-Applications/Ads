@@ -40,9 +40,7 @@
 //    [[UITabBarItem appearance] setTitleTextAttributes:nil forState:UIControlStateNormal];
     
     DFMainViewController *mainViewController = [[DFMainViewController alloc] initWithNibName:nil bundle:nil];
-//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:rootVC];
-    DFVideoPlayer *videoPlayer = [[DFVideoPlayer alloc] init];
-    self.window.rootViewController = videoPlayer;
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     [self.window makeKeyAndVisible];
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];

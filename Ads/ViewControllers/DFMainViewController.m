@@ -51,14 +51,20 @@ static NSString *CellIdentifier = @"CellIdentifier";
     // 只做addSubViews
     [self.view addSubview:self.tableView];
     [self layoutPageSubviews];
+    
+    
 }
-
+DFVideoPlayer *player;
 - (void)viewWillAppear:(BOOL)animated {
     
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [self loadNewData];
+    
+    player = [[DFVideoPlayer alloc] initWithURL:[NSURL URLWithString:@"http://krtv.qiniudn.com/150522nextapp"]];
+    [player showInParentView:self.view];
+    [player start];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -67,6 +73,23 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 - (void)viewWillDisappear:(BOOL)animated {
     
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [player updateConstraintsForInterfaceOrientation:toInterfaceOrientation];
+}
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
 }
 
 - (void)didReceiveMemoryWarning {
